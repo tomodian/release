@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0]
+
 ### Added
 
-- GitHub Actions for test.linux.yml
+- GitHub Actions release.yml
+- GitHub Actions test.linux.yml
 - License
 - Executable bundler for *nix and Windows
 - Parser and utils
