@@ -59,10 +59,16 @@ func Show(doc string, ver string) ([]string, error) {
 		return outs, errors.New("given document is empty")
 	}
 
-	v, err := Version(ver)
+	v := Unreleased
 
-	if err != nil {
-		return outs, err
+	if ver != Unreleased {
+		ver, err := Version(ver)
+
+		if err != nil {
+			return outs, err
+		}
+
+		v = ver
 	}
 
 	found := false

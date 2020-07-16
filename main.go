@@ -29,7 +29,6 @@ func main() {
 	verFlag := &cli.StringFlag{
 		Name:    "version",
 		Value:   parser.Unreleased,
-		Usage:   "0.1.0",
 		Aliases: []string{"v"},
 	}
 
@@ -61,11 +60,57 @@ func main() {
 				},
 			},
 			{
+				Name:    "next",
+				Usage:   fmt.Sprintf("List all changes for %s", parser.Unreleased),
+				Aliases: []string{"n"},
+				Flags: []cli.Flag{
+					dirFlag,
+				},
+				Action: func(c *cli.Context) error {
+
+					for _, p := range utils.Glob(c.String("dir")) {
+						fmt.Println(chalk.Magenta.Color(p))
+						fmt.Println("")
+
+						doc, err := utils.ReadFile(p)
+
+						if err != nil {
+							return err
+						}
+
+						outs, err := parser.Show(doc, parser.Unreleased)
+
+						if err != nil {
+							return err
+						}
+
+						if len(outs) == 0 {
+							fmt.Println(utils.Pretty(utils.EmptyLine))
+							fmt.Println("")
+							continue
+						}
+
+						for _, o := range outs {
+							fmt.Println(utils.Pretty(o))
+						}
+
+						fmt.Println("")
+					}
+
+					return nil
+				},
+			},
+			{
 				Name:    "show",
 				Usage:   "Show changes of given version",
 				Aliases: []string{"for"},
 				Flags: []cli.Flag{
-					verFlag,
+					&cli.StringFlag{
+						Name:    verFlag.Name,
+						Aliases: []string{"v"},
+						// Version must be explicitly passed.
+						Required: true,
+					},
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
@@ -106,7 +151,6 @@ func main() {
 				Name:  "to",
 				Usage: "Bump all [Unreleased] sections to given version",
 				Flags: []cli.Flag{
-					verFlag,
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
