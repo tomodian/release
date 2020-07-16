@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- GitHub Actions for test.linux.yml
 - License
 - Executable bundler for *nix and Windows
 - Parser and utils
