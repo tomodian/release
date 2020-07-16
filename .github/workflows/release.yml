@@ -11,14 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Setup runtime
-        uses: actions/setup-go@v2
-        with:
-          node-version: ${{ matrix.node }}
-
       - name: Build
         run: |
-          make install
+          go get github.com/mitchellh/gox
           make build
 
       - name: Create release
