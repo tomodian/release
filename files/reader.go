@@ -1,4 +1,4 @@
-package utils
+package files
 
 import (
 	"errors"
@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-// ReadFile returns string of target path.
-func ReadFile(path string) (string, error) {
+// Read returns string of target path.
+func Read(path string) (string, error) {
 	if path == "" {
 		return "", errors.New("given path is empty")
 	}

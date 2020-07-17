@@ -5,9 +5,11 @@ import (
 	"log"
 	"os"
 
+	"release/files"
 	"release/parser"
 	"release/utils"
 
+	"github.com/manifoldco/promptui"
 	"github.com/ttacon/chalk"
 	"github.com/urfave/cli/v2"
 )
@@ -30,6 +32,13 @@ func main() {
 		Name:    "version",
 		Value:   parser.Unreleased,
 		Aliases: []string{"v"},
+	}
+
+	verFlagRequired := &cli.StringFlag{
+		Name:     verFlag.Name,
+		Usage:    "target `VERSION`",
+		Aliases:  []string{"v"},
+		Required: true,
 	}
 
 	app := &cli.App{
@@ -72,7 +81,7 @@ func main() {
 						fmt.Println(chalk.Magenta.Color(p))
 						fmt.Println("")
 
-						doc, err := utils.ReadFile(p)
+						doc, err := files.Read(p)
 
 						if err != nil {
 							return err
@@ -105,12 +114,7 @@ func main() {
 				Usage:   "Show changes of given version",
 				Aliases: []string{"for"},
 				Flags: []cli.Flag{
-					&cli.StringFlag{
-						Name:    verFlag.Name,
-						Aliases: []string{"v"},
-						// Version must be explicitly passed.
-						Required: true,
-					},
+					verFlagRequired,
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
@@ -119,7 +123,7 @@ func main() {
 						fmt.Println(chalk.Magenta.Color(p))
 						fmt.Println("")
 
-						doc, err := utils.ReadFile(p)
+						doc, err := files.Read(p)
 
 						if err != nil {
 							return err
@@ -151,10 +155,74 @@ func main() {
 				Name:  "to",
 				Usage: "Bump all [Unreleased] sections to given version",
 				Flags: []cli.Flag{
+					verFlagRequired,
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
-					fmt.Println("new task template: ", c.Args().First())
+
+					v, err := parser.Version(c.String("version"))
+
+					if err != nil {
+						return err
+					}
+
+					targets := utils.Glob(c.String("dir"))
+
+					if len(targets) == 0 {
+						fmt.Println("(nothing found)")
+						return nil
+					}
+
+					fmt.Println(chalk.Magenta.Color("Targets"))
+
+					for _, p := range utils.Glob(c.String("dir")) {
+						fmt.Println(p)
+					}
+
+					prompt := promptui.Select{
+						Label: chalk.Magenta.Color(fmt.Sprintf("Do you really want to bump these CHANGELOGs to version %s?", v)),
+						Items: []string{"no", "yes"},
+					}
+
+					_, picked, err := prompt.Run()
+
+					if err != nil {
+						return err
+					}
+
+					if picked != "yes" {
+						fmt.Println("Cancelled")
+						return nil
+					}
+
+					for _, p := range utils.Glob(c.String("dir")) {
+						fmt.Printf("%s --> ", chalk.Magenta.Color(p))
+
+						doc, err := files.Read(p)
+
+						if err != nil {
+							return err
+						}
+
+						body, err := parser.To(doc, c.String("version"))
+
+						if err != nil {
+							return err
+						}
+
+						if len(body) == 0 {
+							fmt.Println("skipped")
+							continue
+						}
+
+						if err := files.Update(p, body); err != nil {
+							fmt.Println("❌")
+							continue
+						}
+
+						fmt.Println("✅")
+					}
+
 					return nil
 				},
 			},

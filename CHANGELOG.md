@@ -7,49 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.7]
+### Added
+
+- File writer to persist changes
+- More tests for utils
+
+### Changed
+
+- Moved utils.ReadFile to files.Read
+
+## [0.1.7] - 2020-07-17
 
 ### Changed
 
 - Switched to use 'hub release edit' command to attach files
 
-## [0.1.6]
+## [0.1.6] - 2020-07-17
 
 ### Fixed
 
 - Typo on hub release
 
-## [0.1.5]
+## [0.1.5] - 2020-07-17
 
 ### Fixed
 
 - Explicitly added Go binary path
 
-## [0.1.4]
+## [0.1.4] - 2020-07-17
 
 ### Fixed
 
 - Trying to download gox by directly calling go get
 
-## [0.1.3]
+## [0.1.3] - 2020-07-17
 
 ### Fixed
 
 - Setup actions/setup-go@v2 before calling Build step
 
-## [0.1.2]
+## [0.1.2] - 2020-07-17
 
 ### Fixed
 
 - Use actions/setup-go@v2 for build
 
-## [0.1.1]
+## [0.1.1] - 2020-07-17
 
 ### Fixed
 
 - Added installation step on release
 
-## [0.1.0]
+## [0.1.0] - 2020-07-17
 
 ### Added
 
