@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Ignored common vendor directories
 
+### Changed
+
+- Moved utils.Glob to files
+
 ## [0.2.1] - 2020-07-17
 
 ### Added
