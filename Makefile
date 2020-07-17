@@ -27,3 +27,6 @@ run:
 
 test:
 	go test -cover -count 1 -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+cover:
+	go test -cover -coverprofile coverage.log ./... && go tool cover -html=coverage.log
