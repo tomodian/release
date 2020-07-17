@@ -43,4 +43,4 @@ jobs:
           done
 
           tag_name="${GITHUB_REF##*/}"
-          hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
+          hub release edit "${assets[@]}" -m "$tag_name" "$tag_name"
