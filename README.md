@@ -1,6 +1,6 @@
 # Release
 
-![GitHub All Releases](https://img.shields.io/github/downloads/tomodian/release/total?style=social)
+[![GitHub All Releases](https://img.shields.io/github/downloads/tomodian/release/total?style=social)](https://github.com/tomodian/release/releases)
 ![Test on Linux](https://github.com/tomodian/release/workflows/Test%20on%20Linux/badge.svg?branch=develop)
 [![codecov](https://codecov.io/gh/tomodian/release/branch/develop/graph/badge.svg)](https://codecov.io/gh/tomodian/release)
 
