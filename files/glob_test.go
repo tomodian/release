@@ -1,11 +1,11 @@
-package utils_test
+package files_test
 
 import (
 	"fmt"
 	"os"
 	"testing"
 
-	"release/utils"
+	"release/files"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -47,7 +47,7 @@ func TestGlob(t *testing.T) {
 		}
 
 		for _, p := range pats {
-			got := utils.Glob(p.path)
+			got := files.Glob(p.path)
 
 			require.Nilf(t, err, "%s", p)
 			assert.Equalf(t, p.count, len(got), "%s", p.path)
