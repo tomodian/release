@@ -76,7 +76,7 @@ func TestTo(t *testing.T) {
 			v, err := parser.Version(p.version)
 			require.Nil(t, err)
 
-			assert.Equal(t, 1, strings.Count(got, v))
+			assert.Equalf(t, 1, strings.Count(got, v), "%#v", p)
 		}
 	}
 
@@ -95,12 +95,12 @@ func TestTo(t *testing.T) {
 					"## [Unreleased]",
 				}, "\n"),
 			},
-			{
-				version: "0.1.0",
-				doc: strings.Join([]string{
-					"# Hello",
-				}, "\n"),
-			},
+			// {
+			// 	version: "0.1.0",
+			// 	doc: strings.Join([]string{
+			// 		"# Hello",
+			// 	}, "\n"),
+			// },
 			{
 				version: "0.1.BROKEN",
 				doc: strings.Join([]string{
@@ -113,9 +113,9 @@ func TestTo(t *testing.T) {
 		}
 
 		for _, p := range pats {
-			_, err := parser.To(p.doc, p.version)
+			got, err := parser.To(p.doc, p.version)
 
-			require.NotNil(t, err)
+			require.NotNilf(t, err, "tried %#v, got %s", p, got)
 		}
 	}
 }

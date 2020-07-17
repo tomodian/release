@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/blang/semver/v4"
 )
@@ -20,7 +21,7 @@ func Version(in string) (string, error) {
 	v, err := semver.Make(in)
 
 	if err != nil {
-		return "", errors.New("given version is not compatible with SemVar")
+		return "", errors.New("given version is not compatible with Semantic Versioning")
 	}
 
 	return fmt.Sprintf("[%s]", v.String()), nil
@@ -38,6 +39,17 @@ func To(doc string, ver string) (string, error) {
 		return "", err
 	}
 
+	// Check for diff and return the original when no changes.
+	diff, err := Show(doc, Unreleased)
+
+	if err != nil {
+		return "", err
+	}
+
+	if len(diff) == 0 {
+		return doc, nil
+	}
+
 	count := strings.Count(doc, unreleasedHeading)
 
 	if count == 0 {
@@ -48,7 +60,13 @@ func To(doc string, ver string) (string, error) {
 		return "", fmt.Errorf("given document contains more than 1 %s tags", Unreleased)
 	}
 
-	return strings.Replace(doc, Unreleased, v, 1), nil
+	template := strings.Join([]string{
+		Unreleased,
+		"",
+		fmt.Sprintf("## %s - %s", v, time.Now().Format("2006-01-02")),
+	}, "\n")
+
+	return strings.Replace(doc, Unreleased, template, 1), nil
 }
 
 // Show returns changes of given version.
@@ -104,7 +122,7 @@ func Show(doc string, ver string) ([]string, error) {
 	}
 
 	// Remove last line if empty.
-	if outs[len(outs)-1] == "" {
+	if len(outs) > 1 && outs[len(outs)-1] == "" {
 		outs = outs[:len(outs)-1]
 	}
 
