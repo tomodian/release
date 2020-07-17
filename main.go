@@ -72,7 +72,7 @@ func run(args []string) {
 					fmt.Println(chalk.Magenta.Color(headingTarget))
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(p)
+						fmt.Println(files.Rel(p))
 					}
 
 					return nil
@@ -88,7 +88,7 @@ func run(args []string) {
 				Action: func(c *cli.Context) error {
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(chalk.Magenta.Color(p))
+						fmt.Println(chalk.Magenta.Color(files.Rel(p)))
 						fmt.Println("")
 
 						doc, err := files.Read(p)
@@ -130,7 +130,7 @@ func run(args []string) {
 				Action: func(c *cli.Context) error {
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(chalk.Magenta.Color(p))
+						fmt.Println(chalk.Magenta.Color(files.Rel(p)))
 						fmt.Println("")
 
 						doc, err := files.Read(p)
@@ -191,7 +191,7 @@ func run(args []string) {
 					fmt.Println(chalk.Magenta.Color(headingTarget))
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(p)
+						fmt.Println(files.Rel(p))
 					}
 
 					if !c.Bool(flagForce) {
@@ -216,7 +216,7 @@ func run(args []string) {
 					fmt.Println("")
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Printf("%s --> ", p)
+						fmt.Printf("%s --> ", files.Rel(p))
 
 						doc, err := files.Read(p)
 

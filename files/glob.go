@@ -2,6 +2,8 @@ package files
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -59,4 +61,21 @@ func Glob(d string) []string {
 	}
 
 	return outs
+}
+
+// Rel returns relative path.
+func Rel(path string) string {
+	wd, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	rel, err := filepath.Rel(wd, path)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return rel
 }

@@ -54,3 +54,40 @@ func TestGlob(t *testing.T) {
 		}
 	}
 }
+
+func TestRel(t *testing.T) {
+	type pattern struct {
+		path string
+	}
+
+	{
+		// Success cases.
+		pwd, err := os.Getwd()
+
+		require.Nil(t, err)
+
+		pats := []pattern{
+			{
+				path: fmt.Sprintf("%s/test", pwd),
+			},
+			{
+				path: fmt.Sprintf("%s/test/some", pwd),
+			},
+			{
+				path: fmt.Sprintf("%s/test/some/nested", pwd),
+			},
+			{
+				path: fmt.Sprintf("%s/test/some/nested/directory", pwd),
+			},
+			{
+				path: fmt.Sprintf("%s/test/some/nested/directory/NotExistent", pwd),
+			},
+		}
+
+		for _, p := range pats {
+			assert.NotPanics(t, func() {
+				files.Rel(p.path)
+			})
+		}
+	}
+}
