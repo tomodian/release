@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Typo on hub release
+
+## [0.1.5]
+
+### Fixed
+
 - Explicitly added Go binary path
 
 ## [0.1.4]
