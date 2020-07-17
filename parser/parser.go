@@ -39,6 +39,17 @@ func To(doc string, ver string) (string, error) {
 		return "", err
 	}
 
+	// Check for diff and return the original when no changes.
+	diff, err := Show(doc, Unreleased)
+
+	if err != nil {
+		return "", err
+	}
+
+	if len(diff) == 0 {
+		return doc, nil
+	}
+
 	count := strings.Count(doc, unreleasedHeading)
 
 	if count == 0 {
@@ -111,7 +122,7 @@ func Show(doc string, ver string) ([]string, error) {
 	}
 
 	// Remove last line if empty.
-	if outs[len(outs)-1] == "" {
+	if len(outs) > 1 && outs[len(outs)-1] == "" {
 		outs = outs[:len(outs)-1]
 	}
 
