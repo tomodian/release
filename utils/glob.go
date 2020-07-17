@@ -2,10 +2,35 @@ package utils
 
 import (
 	"fmt"
+	"path/filepath"
 	"sort"
+	"strings"
 
 	"github.com/bmatcuk/doublestar"
 )
+
+var (
+	excludes = []string{
+		".cache",
+		".vagrant",
+		".vendor",
+		"build",
+		"coverage",
+		"node_modules",
+	}
+)
+
+func ignore(path string) bool {
+	slash := filepath.ToSlash(path)
+
+	for _, e := range excludes {
+		if strings.Contains(slash, e) {
+			return true
+		}
+	}
+
+	return false
+}
 
 // Glob seeks for all CHANGELOG.md in given directory.
 func Glob(d string) []string {
@@ -21,5 +46,17 @@ func Glob(d string) []string {
 		return paths[i] < paths[j]
 	})
 
-	return paths
+	outs := []string{}
+
+	// Exclude vendor directories.
+	for _, p := range paths {
+
+		if ignore(p) {
+			continue
+		}
+
+		outs = append(outs, p)
+	}
+
+	return outs
 }
