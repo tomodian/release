@@ -1,5 +1,9 @@
 # Release
 
+![GitHub All Releases](https://img.shields.io/github/downloads/tomodian/release/total?style=social)
+![Test on Linux](https://github.com/tomodian/release/workflows/Test%20on%20Linux/badge.svg?branch=develop)
+[![codecov](https://codecov.io/gh/tomodian/release/branch/develop/graph/badge.svg)](https://codecov.io/gh/tomodian/release)
+
 A small command-line utility to manage CHANGELOG.md written in [keepachangelog.com](https://keepachangelog.com) format.
 
 Works nicely on [Monorepo](https://en.wikipedia.org/wiki/Monorepo).

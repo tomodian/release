@@ -17,6 +17,7 @@
 .vendor
 .vscode
 build
+coverage.txt
 
 # Only applies to top-level directories.
 /coverage
