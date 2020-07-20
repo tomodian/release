@@ -29,7 +29,7 @@ const (
 	flagForce     = "force"
 )
 
-func run(args []string) {
+func run(args []string) error {
 	wd, err := os.Getwd()
 
 	if err != nil {
@@ -254,7 +254,10 @@ func run(args []string) {
 	if err := app.Run(args); err != nil {
 		fmt.Println("Error!")
 		fmt.Println(err)
+		return err
 	}
+
+	return nil
 }
 
 func main() {

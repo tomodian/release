@@ -29,4 +29,45 @@ func TestRun(t *testing.T) {
 			})
 		}
 	}
+
+	{
+		// Fail case for `next` task.
+		pats := [][]string{
+			{"next", "--dir", "non-existent"},
+		}
+
+		for _, p := range pats {
+			os.Args = p
+
+			require.NotNilf(t, run(os.Args), "#%v", p)
+		}
+	}
+
+	{
+		// Fail case for `show` task.
+		pats := [][]string{
+			{"show", "--dir", "non-existent"},
+			{"show", "--dir", "non-existent", "--version", "x.y.z"},
+		}
+
+		for _, p := range pats {
+			os.Args = p
+
+			require.NotNilf(t, run(os.Args), "#%v", p)
+		}
+	}
+
+	{
+		// Fail case for `to` task.
+		pats := [][]string{
+			{"to", "--dir", "non-existent"},
+			{"to", "--dir", "non-existent", "--version", "x.x.x"},
+		}
+
+		for _, p := range pats {
+			os.Args = p
+
+			require.NotNilf(t, run(os.Args), "#%v", p)
+		}
+	}
 }
