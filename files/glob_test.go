@@ -18,6 +18,21 @@ func TestGlob(t *testing.T) {
 	}
 
 	{
+		// Fail cases.
+		pats := []pattern{
+			{
+				path: "[-]",
+			},
+		}
+
+		for _, p := range pats {
+			assert.Panics(t, func() {
+				files.Glob(p.path)
+			})
+		}
+	}
+
+	{
 		// Success cases.
 		pwd, err := os.Getwd()
 
