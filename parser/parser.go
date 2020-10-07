@@ -3,6 +3,7 @@ package parser
 import (
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -127,4 +128,23 @@ func Show(doc string, ver string) ([]string, error) {
 	}
 
 	return outs, nil
+}
+
+// Latest returns the latest version stored in document.
+// This operation simply matches to the first h2 header.
+func Latest(doc string) (string, error) {
+
+	re := regexp.MustCompile(`## \[(\d*\.\d*\.\d*)\]`)
+
+	for _, line := range strings.Split(doc, "\n") {
+		got := re.FindStringSubmatch(line)
+
+		if len(got) != 2 {
+			continue
+		}
+
+		return got[1], nil
+	}
+
+	return "", errors.New("not found")
 }
