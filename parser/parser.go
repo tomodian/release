@@ -134,9 +134,9 @@ func Show(doc string, ver string) ([]string, error) {
 // This operation simply matches to the first h2 header.
 func Latest(doc string) (string, error) {
 
-	for _, line := range strings.Split(doc, "\n") {
-		re := regexp.MustCompile(`## \[(\d*\.\d*\.\d*)\]`)
+	re := regexp.MustCompile(`## \[(\d*\.\d*\.\d*)\]`)
 
+	for _, line := range strings.Split(doc, "\n") {
 		got := re.FindStringSubmatch(line)
 
 		if len(got) != 2 {
