@@ -20,6 +20,7 @@ const (
 
 	// Subcommands
 	cmdTargets = "targets"
+	cmdLatest  = "latest"
 	cmdNext    = "next"
 	cmdTo      = "to"
 
@@ -74,6 +75,32 @@ func run(args []string) error {
 					for _, p := range files.Glob(c.String(flagDirectory)) {
 						fmt.Println(files.Rel(p))
 					}
+
+					return nil
+				},
+			},
+			{
+				Name:    cmdLatest,
+				Usage:   "Show the latest released version in current directory",
+				Aliases: []string{"l"},
+				Flags: []cli.Flag{
+					dirFlag,
+				},
+				Action: func(c *cli.Context) error {
+
+					doc, err := files.Read(fmt.Sprintf("%s/CHANGELOG.md", wd))
+
+					if err != nil {
+						return err
+					}
+
+					got, err := parser.Latest(doc)
+
+					if err != nil {
+						return err
+					}
+
+					fmt.Println(got)
 
 					return nil
 				},
