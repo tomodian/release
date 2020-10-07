@@ -37,6 +37,14 @@ Run `release` to show full list of commands and flags.
 
     release show -v 0.1.0
 
+### Show the latest released version in current directory
+
+    release latest
+
+### Bump all [Unreleased] sections to given version
+
+    release to -v 0.2.0
+
 ## Development
 
 ### Run
