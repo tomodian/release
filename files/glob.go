@@ -106,5 +106,5 @@ func Rel(path string) string {
 		log.Fatal(err)
 	}
 
-	return rel
+	return fmt.Sprintf("## %s", rel)
 }
