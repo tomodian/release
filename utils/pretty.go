@@ -17,8 +17,14 @@ func Pretty(in string) string {
 	case in == EmptyLine:
 		return chalk.Dim.TextStyle(EmptyLine)
 
+	case strings.HasPrefix(in, "# "):
+		return chalk.Yellow.Color(in)
+
+	case strings.HasPrefix(in, "## "):
+		return chalk.Blue.Color(in)
+
 	case strings.HasPrefix(in, "### "):
-		return chalk.Cyan.Color(strings.Replace(in, "### ", "", 1))
+		return chalk.Cyan.Color(in)
 	}
 
 	return in

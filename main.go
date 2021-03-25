@@ -16,7 +16,7 @@ import (
 
 const (
 	// Headings
-	headingTarget = "Targets:"
+	headingTarget = "# Targets"
 
 	// Subcommands
 	cmdTargets = "targets"
@@ -70,7 +70,7 @@ func run(args []string) error {
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
-					fmt.Println(chalk.Magenta.Color(headingTarget))
+					fmt.Println(utils.Pretty(headingTarget))
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
 						fmt.Println(files.Rel(p))
@@ -115,7 +115,7 @@ func run(args []string) error {
 				Action: func(c *cli.Context) error {
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(chalk.Magenta.Color(files.Rel(p)))
+						fmt.Println(utils.Pretty(files.Rel(p)))
 						fmt.Println("")
 
 						doc, err := files.Read(p)

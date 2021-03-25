@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2021-03-25
+
+### Changed
+
+- Render Markdown as default style
+
 ## [0.4.0] - 2020-10-07
 
 ### Added
