@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2021-04-02
+
+### Fixed
+
+- Excluded darwin/386 arch due to deprecation
+
 ## [0.5.0] - 2021-03-25
 
 ### Changed
