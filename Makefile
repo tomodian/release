@@ -17,7 +17,7 @@ bundle-windows:
 
 build: clean
 	@echo "Building.."
-	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}"
+	gox -osarch="!darwin/386" -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}"
 	@echo "Bundling.."
 	$(MAKE) bundle-nix
 	$(MAKE) bundle-windows
