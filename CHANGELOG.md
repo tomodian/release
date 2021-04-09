@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- In show and next tasks, implemented ignore flag to skip rendering empty changes
+
 ## [0.5.1] - 2021-04-02
 
 ### Fixed

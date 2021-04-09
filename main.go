@@ -25,9 +25,10 @@ const (
 	cmdTo      = "to"
 
 	// Flag keys
-	flagDirectory = "dir"
-	flagVersion   = "version"
-	flagForce     = "force"
+	flagDirectory   = "dir"
+	flagIgnoreEmpty = "ignore"
+	flagVersion     = "version"
+	flagForce       = "force"
 )
 
 func run(args []string) error {
@@ -42,6 +43,13 @@ func run(args []string) error {
 		Value:   wd,
 		Usage:   "target `DIR`",
 		Aliases: []string{"d"},
+	}
+
+	ignoreEmptyFlag := &cli.BoolFlag{
+		Name:    flagIgnoreEmpty,
+		Value:   false,
+		Usage:   "ignore output for changelog without changes",
+		Aliases: []string{"i"},
 	}
 
 	verFlag := &cli.StringFlag{
@@ -111,13 +119,11 @@ func run(args []string) error {
 				Aliases: []string{"n"},
 				Flags: []cli.Flag{
 					dirFlag,
+					ignoreEmptyFlag,
 				},
 				Action: func(c *cli.Context) error {
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(utils.Pretty(files.Rel(p)))
-						fmt.Println("")
-
 						doc, err := files.Read(p)
 
 						if err != nil {
@@ -129,6 +135,13 @@ func run(args []string) error {
 						if err != nil {
 							return err
 						}
+
+						if c.Bool(flagIgnoreEmpty) && len(outs) == 0 {
+							continue
+						}
+
+						fmt.Println(utils.Pretty(files.Rel(p)))
+						fmt.Println("")
 
 						if len(outs) == 0 {
 							fmt.Println(utils.Pretty(utils.EmptyLine))
@@ -153,13 +166,11 @@ func run(args []string) error {
 				Flags: []cli.Flag{
 					verFlagRequired,
 					dirFlag,
+					ignoreEmptyFlag,
 				},
 				Action: func(c *cli.Context) error {
 
 					for _, p := range files.Glob(c.String(flagDirectory)) {
-						fmt.Println(chalk.Magenta.Color(files.Rel(p)))
-						fmt.Println("")
-
 						doc, err := files.Read(p)
 
 						if err != nil {
@@ -171,6 +182,13 @@ func run(args []string) error {
 						if err != nil {
 							return err
 						}
+
+						if c.Bool(flagIgnoreEmpty) && len(outs) == 0 {
+							continue
+						}
+
+						fmt.Println(chalk.Magenta.Color(files.Rel(p)))
+						fmt.Println("")
 
 						if len(outs) == 0 {
 							fmt.Println(utils.Pretty(utils.EmptyLine))
