@@ -19,7 +19,6 @@ var (
 		".cache",
 		".dynamodb",
 		".eggs",
-		".git",
 		".grunt",
 		".idea",
 		".ipynb_checkpoints",

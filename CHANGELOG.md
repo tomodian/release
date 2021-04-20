@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2021-04-20
+
+- Removed .git directory from exclusion list, to include .github directory
+
 ## [0.6.0] - 2021-04-09
 
 ### Added
