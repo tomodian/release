@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/facette/natsort"
 )
 
 // SemanticVersion represents major/minor/patch numbers.
@@ -77,6 +79,11 @@ func (c SemanticVersion) IsGreater(in *SemanticVersion) bool {
 	return false
 }
 
+// String decorator.
+func (c SemanticVersion) String() string {
+	return fmt.Sprintf("%d.%d.%d", c.Major, c.Minor, c.Patch)
+}
+
 // CastVersion parse and set a string into given struct.
 func CastVersion(name, val string) (int, error) {
 	const failcode = -1
@@ -92,4 +99,25 @@ func CastVersion(name, val string) (int, error) {
 	}
 
 	return i, nil
+}
+
+// SortVersions in ascending order with dumb algorithm.
+func SortVersions(in []SemanticVersion) []SemanticVersion {
+
+	vers := []string{}
+
+	for _, v := range in {
+		vers = append(vers, v.String())
+	}
+
+	natsort.Sort(vers)
+
+	out := []SemanticVersion{}
+
+	for _, v := range vers {
+		got, _ := NewSemanticVersion(v)
+		out = append(out, *got)
+	}
+
+	return out
 }
