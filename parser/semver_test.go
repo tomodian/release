@@ -129,7 +129,7 @@ func TestNewSemanticVersionIsEqual(t *testing.T) {
 	}
 }
 
-func TestNewSemanticVersionIsGreater(t *testing.T) {
+func TestSemanticVersionIsGreater(t *testing.T) {
 	type pattern struct {
 		a *parser.SemanticVersion
 		b *parser.SemanticVersion
@@ -192,6 +192,17 @@ func TestNewSemanticVersionIsGreater(t *testing.T) {
 	}
 }
 
+func TestSemanticVersionString(t *testing.T) {
+
+	v := &parser.SemanticVersion{
+		Major: 1,
+		Minor: 2,
+		Patch: 3,
+	}
+
+	assert.Equal(t, "1.2.3", v.String())
+}
+
 func TestCastVersion(t *testing.T) {
 	{
 		// Success cases.
@@ -233,5 +244,58 @@ func TestCastVersion(t *testing.T) {
 			require.Errorf(t, err, spew.Sdump(p))
 			assert.Equalf(t, -1, got, spew.Sdump(p))
 		}
+	}
+}
+
+func TestSortVersions(t *testing.T) {
+
+	type pattern struct {
+		exp []parser.SemanticVersion
+		in  []parser.SemanticVersion
+	}
+
+	pats := []pattern{
+		{
+			exp: []parser.SemanticVersion{
+				{Major: 0, Minor: 0, Patch: 0},
+				{Major: 0, Minor: 0, Patch: 1},
+				{Major: 0, Minor: 0, Patch: 2},
+			},
+			in: []parser.SemanticVersion{
+				{Major: 0, Minor: 0, Patch: 2},
+				{Major: 0, Minor: 0, Patch: 1},
+				{Major: 0, Minor: 0, Patch: 0},
+			},
+		},
+		{
+			exp: []parser.SemanticVersion{
+				{Major: 1, Minor: 1, Patch: 1},
+				{Major: 2, Minor: 11, Patch: 2},
+				{Major: 2, Minor: 100, Patch: 0},
+			},
+			in: []parser.SemanticVersion{
+				{Major: 2, Minor: 100, Patch: 0},
+				{Major: 1, Minor: 1, Patch: 1},
+				{Major: 2, Minor: 11, Patch: 2},
+			},
+		},
+		{
+			exp: []parser.SemanticVersion{
+				{Major: 1, Minor: 0, Patch: 0},
+				{Major: 11, Minor: 0, Patch: 0},
+				{Major: 111, Minor: 0, Patch: 0},
+			},
+			in: []parser.SemanticVersion{
+				{Major: 111, Minor: 0, Patch: 0},
+				{Major: 11, Minor: 0, Patch: 0},
+				{Major: 1, Minor: 0, Patch: 0},
+			},
+		},
+	}
+
+	for _, p := range pats {
+		got := parser.SortVersions(p.in)
+
+		assert.Equalf(t, p.exp, got, spew.Sdump(p.exp, got))
 	}
 }
