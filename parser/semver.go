@@ -84,6 +84,19 @@ func (c SemanticVersion) String() string {
 	return fmt.Sprintf("%d.%d.%d", c.Major, c.Minor, c.Patch)
 }
 
+// Increment version according to given type.
+func (c SemanticVersion) Increment(in VersionType) SemanticVersion {
+	switch in {
+	case MajorVersion:
+		return SemanticVersion{Major: c.Major + 1, Minor: 0, Patch: 0}
+
+	case MinorVersion:
+		return SemanticVersion{Major: c.Major, Minor: c.Minor + 1, Patch: 0}
+	}
+
+	return SemanticVersion{Major: c.Major, Minor: c.Minor, Patch: c.Patch + 1}
+}
+
 // CastVersion parse and set a string into given struct.
 func CastVersion(name, val string) (int, error) {
 	const failcode = -1
