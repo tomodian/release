@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestVersion(t *testing.T) {
+func TestOpenRepository(t *testing.T) {
 	{
 		// Success cases.
 		pats := []string{

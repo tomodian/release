@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2021-04-23
+
+### Added
+
+- Added version task to suggest new version in CLI
+- Created VersionType to handle major, minor, patch versions
+- Created Git repository parser to retrieve a list of tags
+- Created Semantic Versioning parser
+
+### Changed
+
+- Moved CLI commands into cmd directory
+- Updated dependencies
+
 ## [0.6.1] - 2021-04-20
 
 - Removed .git directory from exclusion list, to include .github directory
