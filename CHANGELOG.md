@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Created Git repository parser to retrieve a list of tags
 - Created Semantic Versioning parser
+
+### Changed
+
+- Updated dependencies
 
 ## [0.6.1] - 2021-04-20
 
