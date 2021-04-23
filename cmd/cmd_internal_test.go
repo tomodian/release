@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"os"
@@ -26,7 +26,7 @@ func TestRun(t *testing.T) {
 
 			require.NotPanics(t, func() {
 				// TODO: handle errors
-				_ = run(args)
+				_ = Run(args)
 			})
 		}
 	}
@@ -40,7 +40,7 @@ func TestRun(t *testing.T) {
 		for _, p := range pats {
 			os.Args = p
 
-			require.NotNilf(t, run(os.Args), "#%v", p)
+			require.NotNilf(t, Run(os.Args), "#%v", p)
 		}
 	}
 
@@ -54,7 +54,7 @@ func TestRun(t *testing.T) {
 		for _, p := range pats {
 			os.Args = p
 
-			require.NotNilf(t, run(os.Args), "#%v", p)
+			require.NotNilf(t, Run(os.Args), "#%v", p)
 		}
 	}
 
@@ -68,7 +68,20 @@ func TestRun(t *testing.T) {
 		for _, p := range pats {
 			os.Args = p
 
-			require.NotNilf(t, run(os.Args), "#%v", p)
+			require.NotNilf(t, Run(os.Args), "#%v", p)
+		}
+	}
+
+	{
+		// Fail case for `version` task.
+		pats := [][]string{
+			{"version", "--dir", "non-existent"},
+		}
+
+		for _, p := range pats {
+			os.Args = p
+
+			require.NotNilf(t, Run(os.Args), "#%v", p)
 		}
 	}
 }

@@ -9,6 +9,7 @@ require (
 	github.com/facette/natsort v0.0.0-20181210072756-2cd4dd1e2dcb
 	github.com/go-git/go-git/v5 v5.3.0
 	github.com/manifoldco/promptui v0.8.0
+	github.com/mitchellh/gox v1.0.1 // indirect
 	github.com/stretchr/testify v1.7.0
 	github.com/ttacon/chalk v0.0.0-20160626202418-22c06c80ed31
 	github.com/urfave/cli/v2 v2.3.0

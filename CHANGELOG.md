@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Moved CLI commands into cmd directory
 - Updated dependencies
 
 ## [0.6.1] - 2021-04-20
