@@ -23,12 +23,14 @@ const (
 	cmdLatest  = "latest"
 	cmdNext    = "next"
 	cmdTo      = "to"
+	cmdVersion = "version"
 
 	// Flag keys
 	flagDirectory   = "dir"
 	flagIgnoreEmpty = "ignore"
 	flagVersion     = "version"
 	flagForce       = "force"
+	flagType        = "type"
 )
 
 func run(args []string) error {
@@ -64,6 +66,13 @@ func run(args []string) error {
 		Usage:    verFlag.Usage,
 		Aliases:  verFlag.Aliases,
 		Required: true,
+	}
+
+	versionFlag := &cli.StringFlag{
+		Name:        flagType,
+		Usage:       "Semver `TYPE`: X.Y.Z refers to {major}.{minor}.{patch}",
+		Aliases:     []string{"t"},
+		DefaultText: parser.MinorVersion.String(),
 	}
 
 	app := &cli.App{
@@ -293,6 +302,67 @@ func run(args []string) error {
 					return nil
 				},
 			},
+			{
+				Name:    cmdVersion,
+				Usage:   "Suggest next version by checking CHANGELOGs recursively",
+				Aliases: []string{"v"},
+				Flags: []cli.Flag{
+					dirFlag,
+					versionFlag,
+				},
+				Action: func(c *cli.Context) error {
+
+					latests := map[string]parser.SemanticVersion{}
+
+					// Construct a map of versions.
+					for _, p := range files.Glob(c.String(flagDirectory)) {
+						doc, err := files.Read(p)
+
+						if err != nil {
+							return err
+						}
+
+						lat, err := parser.Latest(doc)
+
+						if err != nil {
+							continue
+						}
+
+						if _, exists := latests[lat]; exists {
+							continue
+						}
+
+						v, err := parser.NewSemanticVersion(lat)
+
+						if err != nil {
+							fmt.Println(err)
+							os.Exit(1)
+						}
+
+						latests[lat] = *v
+					}
+
+					vers := []parser.SemanticVersion{}
+
+					for k := range latests {
+						vers = append(vers, latests[k])
+					}
+
+					vers = parser.SortVersions(vers)
+					ver := vers[len(vers)-1]
+
+					fmt.Println("")
+					fmt.Println("Latest released version:", chalk.Magenta.Color(ver.String()))
+					fmt.Println("")
+					fmt.Println("Suggestions for next release:")
+					fmt.Println("   - Major / Release -->", chalk.Magenta.Color((ver.Increment(parser.MajorVersion).String())))
+					fmt.Println("   - Minor / Feature -->", chalk.Magenta.Color(ver.Increment(parser.MinorVersion).String()))
+					fmt.Println("   - Patch / Hotfix  -->", chalk.Magenta.Color(ver.Increment(parser.PatchVersion).String()))
+					fmt.Println("")
+
+					return nil
+				},
+			},
 		},
 	}
 
@@ -306,5 +376,5 @@ func run(args []string) error {
 }
 
 func main() {
-	run(os.Args)
+	_ = run(os.Args)
 }

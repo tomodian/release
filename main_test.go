@@ -25,7 +25,8 @@ func TestRun(t *testing.T) {
 			args = append(args, p)
 
 			require.NotPanics(t, func() {
-				run(args)
+				// TODO: handle errors
+				_ = run(args)
 			})
 		}
 	}

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added version task to suggest new version in CLI
+- Created VersionType to handle major, minor, patch versions
 - Created Git repository parser to retrieve a list of tags
 - Created Semantic Versioning parser
 
