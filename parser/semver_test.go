@@ -203,6 +203,37 @@ func TestSemanticVersionString(t *testing.T) {
 	assert.Equal(t, "1.2.3", v.String())
 }
 
+func TestSemanticVersionIncrement(t *testing.T) {
+
+	type pattern struct {
+		exp string
+		typ parser.VersionType
+		in  parser.SemanticVersion
+	}
+
+	pats := []pattern{
+		{
+			exp: "1.0.0",
+			typ: parser.MajorVersion,
+			in:  parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
+		},
+		{
+			exp: "0.2.0",
+			typ: parser.MinorVersion,
+			in:  parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
+		},
+		{
+			exp: "0.0.2",
+			typ: parser.PatchVersion,
+			in:  parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
+		},
+	}
+
+	for _, p := range pats {
+		assert.Equalf(t, p.exp, p.in.Increment(p.typ).String(), spew.Sdump(p))
+	}
+}
+
 func TestCastVersion(t *testing.T) {
 	{
 		// Success cases.
