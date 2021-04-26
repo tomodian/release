@@ -1,8 +1,10 @@
 # Release
 
-[![GitHub All Releases](https://img.shields.io/github/downloads/tomodian/release/total?style=social)](https://github.com/tomodian/release/releases)
 ![Test on Linux](https://github.com/tomodian/release/workflows/Test%20on%20Linux/badge.svg?branch=develop)
+[![Release](https://github.com/tomodian/release/actions/workflows/release.yml/badge.svg)](https://github.com/tomodian/release/actions/workflows/release.yml)
 [![codecov](https://codecov.io/gh/tomodian/release/branch/develop/graph/badge.svg)](https://codecov.io/gh/tomodian/release)
+
+[![GitHub All Releases](https://img.shields.io/github/downloads/tomodian/release/total?style=social)](https://github.com/tomodian/release/releases)
 
 A small command-line utility to manage CHANGELOG.md written in [keepachangelog.com](https://keepachangelog.com) format.
 
