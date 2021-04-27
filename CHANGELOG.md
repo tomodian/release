@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Version type support for GitFlow idiom
+
+### Changed
+
+- Renamed `next` command to `unreleased`, `version` command to `next`
+
 ## [0.7.0] - 2021-04-23
 
 ### Added
