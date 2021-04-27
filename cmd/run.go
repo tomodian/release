@@ -50,11 +50,10 @@ func Run(args []string) error {
 		Required: true,
 	}
 
-	versionFlag := &cli.StringFlag{
-		Name:        flagType,
-		Usage:       "Semver `TYPE`: X.Y.Z refers to {major}.{minor}.{patch}",
-		Aliases:     []string{"t"},
-		DefaultText: parser.MinorVersion.String(),
+	typeFlag := &cli.StringFlag{
+		Name:    flagType,
+		Usage:   "Semver `TYPE`: X.Y.Z refers to {major}.{minor}.{patch} or {release}.{feature}.{hotfix}",
+		Aliases: []string{"t"},
 	}
 
 	app := &cli.App{
@@ -105,9 +104,9 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:    cmdNext,
+				Name:    cmdUnreleased,
 				Usage:   fmt.Sprintf("List all changes for %s", parser.Unreleased),
-				Aliases: []string{"n"},
+				Aliases: []string{"u"},
 				Flags: []cli.Flag{
 					dirFlag,
 					ignoreEmptyFlag,
@@ -285,12 +284,12 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:    cmdVersion,
+				Name:    cmdNext,
 				Usage:   "Suggest next version by checking CHANGELOGs recursively",
-				Aliases: []string{"v"},
+				Aliases: []string{"n"},
 				Flags: []cli.Flag{
 					dirFlag,
-					versionFlag,
+					typeFlag,
 				},
 				Action: func(c *cli.Context) error {
 
@@ -333,14 +332,42 @@ func Run(args []string) error {
 					vers = parser.SortVersions(vers)
 					ver := vers[len(vers)-1]
 
-					fmt.Println("")
-					fmt.Println("Latest released version:", chalk.Magenta.Color(ver.String()))
-					fmt.Println("")
-					fmt.Println("Suggestions for next release:")
-					fmt.Println("   - Major / Release -->", chalk.Magenta.Color((ver.Increment(parser.MajorVersion).String())))
-					fmt.Println("   - Minor / Feature -->", chalk.Magenta.Color(ver.Increment(parser.MinorVersion).String()))
-					fmt.Println("   - Patch / Hotfix  -->", chalk.Magenta.Color(ver.Increment(parser.PatchVersion).String()))
-					fmt.Println("")
+					tflag := c.String(flagType)
+
+					if tflag == "" {
+						fmt.Println("")
+						fmt.Println("Latest released version:", chalk.Magenta.Color(ver.String()))
+						fmt.Println("")
+						fmt.Println("Suggestions for next release:")
+						fmt.Println("   - Major / Release -->", chalk.Magenta.Color((ver.Increment(parser.MajorVersion).String())))
+						fmt.Println("   - Minor / Feature -->", chalk.Magenta.Color(ver.Increment(parser.MinorVersion).String()))
+						fmt.Println("   - Patch / Hotfix  -->", chalk.Magenta.Color(ver.Increment(parser.PatchVersion).String()))
+						fmt.Println("")
+
+						return nil
+					}
+
+					vtype, err := parser.AliasedVersion(tflag)
+
+					if err != nil {
+						fmt.Println(err)
+						os.Exit(1)
+					}
+
+					switch vtype {
+
+					case parser.MajorVersion:
+						fmt.Print(ver.Increment(parser.MajorVersion).String())
+						return nil
+
+					case parser.MinorVersion:
+						fmt.Print(ver.Increment(parser.MinorVersion).String())
+						return nil
+
+					case parser.PatchVersion:
+						fmt.Print(ver.Increment(parser.PatchVersion).String())
+						return nil
+					}
 
 					return nil
 				},

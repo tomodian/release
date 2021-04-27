@@ -16,7 +16,8 @@ func TestRun(t *testing.T) {
 		pats := []string{
 			"",
 			cmdTargets, "target", "t",
-			cmdNext, "n",
+			cmdUnreleased, "u",
+			// cmdNext, "n",
 			cmdTo,
 		}
 
