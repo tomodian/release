@@ -357,15 +357,15 @@ func Run(args []string) error {
 					switch vtype {
 
 					case parser.MajorVersion:
-						fmt.Println(ver.Increment(parser.MajorVersion).String())
+						fmt.Print(ver.Increment(parser.MajorVersion).String())
 						return nil
 
 					case parser.MinorVersion:
-						fmt.Println(ver.Increment(parser.MinorVersion).String())
+						fmt.Print(ver.Increment(parser.MinorVersion).String())
 						return nil
 
 					case parser.PatchVersion:
-						fmt.Println(ver.Increment(parser.PatchVersion).String())
+						fmt.Print(ver.Increment(parser.PatchVersion).String())
 						return nil
 					}
 

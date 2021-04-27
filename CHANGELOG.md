@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- No newline on version type rendering
 - Renamed `next` command to `unreleased`, `version` command to `next`
 
 ## [0.7.0] - 2021-04-23
