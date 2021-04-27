@@ -5,11 +5,11 @@ const (
 	headingTarget = "# Targets"
 
 	// Subcommands
-	cmdTargets = "targets"
-	cmdLatest  = "latest"
-	cmdNext    = "next"
-	cmdTo      = "to"
-	cmdVersion = "version"
+	cmdTargets    = "targets"
+	cmdLatest     = "latest"
+	cmdUnreleased = "unreleased"
+	cmdNext       = "next"
+	cmdTo         = "to"
 
 	// Flag keys
 	flagDirectory   = "dir"
