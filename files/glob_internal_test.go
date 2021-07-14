@@ -12,7 +12,6 @@ func TestInternalIgnore(t *testing.T) {
 		pats := append([]string{
 			"/node_modules",
 			"/nested/.cache/dir",
-			`c:\Windows\node_modules`,
 		}, excludes...)
 
 		for _, p := range pats {
