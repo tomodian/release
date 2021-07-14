@@ -54,8 +54,12 @@ func ignore(path string) bool {
 	slash := filepath.ToSlash(path)
 
 	for _, e := range excludes {
-		if strings.Contains(slash, e) {
-			return true
+		chunks := strings.Split(slash, "/")
+
+		for _, c := range chunks {
+			if c == e {
+				return true
+			}
 		}
 	}
 

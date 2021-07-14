@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.2] - 2021-07-14
+
+### Changed
+
+- Switched path matching logic from contain to exact match
+
 ## [0.8.1] - 2021-04-27
 
 ### Changed
