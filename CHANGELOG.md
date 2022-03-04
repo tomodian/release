@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.2] - 2021-07-14
+
+### Fixed
+
+- CD pipeline was failing due to wrong merge
+
+## [0.9.1] - 2021-07-14
+
+### Fixed
+
+- GitHub Actions ubuntu machine could not build darwin/arm64 image, therefore separated build commands
+
 ## [0.9.0] - 2021-07-14
 
 ### Added
