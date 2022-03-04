@@ -12,6 +12,7 @@ const (
 	cmdTo         = "to"
 
 	// Flag keys
+	flagAny         = "any"
 	flagDirectory   = "dir"
 	flagIgnoreEmpty = "ignore"
 	flagVersion     = "version"

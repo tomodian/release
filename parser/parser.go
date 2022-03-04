@@ -148,3 +148,32 @@ func Latest(doc string) (string, error) {
 
 	return "", errors.New("not found")
 }
+
+// LatestAny returns the latest [version] stored in document.
+// Unlike `Latest` which follows Semantic Versioning, this function parse arbitary string
+// excluding `## [Unreleased]` and string with blank spaces.
+// This operation simply matches to the first h2 header.
+func LatestAny(doc string) (string, error) {
+
+	re := regexp.MustCompile(`## \[(.*)\]`)
+
+	for _, line := range strings.Split(doc, "\n") {
+		got := re.FindStringSubmatch(line)
+
+		if len(got) != 2 {
+			continue
+		}
+
+		if got[1] == "Unreleased" {
+			continue
+		}
+
+		if strings.Contains(got[1], " ") {
+			continue
+		}
+
+		return got[1], nil
+	}
+
+	return "", errors.New("not found")
+}

@@ -19,6 +19,7 @@ build: clean
 	@echo "Building.."
 	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}" \
 		-osarch="darwin/amd64" \
+		-osarch="darwin/arm64" \
 		-osarch="linux/arm" \
 		-osarch="linux/amd64" \
 		-osarch="windows/amd64"
