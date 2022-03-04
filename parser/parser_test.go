@@ -260,3 +260,86 @@ func TestLatest(t *testing.T) {
 		}
 	}
 }
+
+func TestLatestAny(t *testing.T) {
+	type pattern struct {
+		doc      string
+		expected string
+	}
+
+	{
+		// Success cases.
+		pats := []pattern{
+			{
+				doc: strings.Join([]string{
+					"## [1.2.3]",
+				}, "\n"),
+				expected: "1.2.3",
+			},
+			{
+				doc: strings.Join([]string{
+					"## [100.200.300]",
+				}, "\n"),
+				expected: "100.200.300",
+			},
+			{
+				doc: strings.Join([]string{
+					"## [Unreleased]",
+					"## [1.2.3]",
+					"hello",
+					"## [1.2.3]",
+					"hello",
+				}, "\n"),
+				expected: "1.2.3",
+			},
+			{
+				doc: strings.Join([]string{
+					"## [Unreleased]",
+					"## [node-alpine:123]",
+				}, "\n"),
+				expected: "node-alpine:123",
+			},
+			{
+				doc: strings.Join([]string{
+					"## [Unreleased]",
+					"## [Node-Alpine:123]",
+				}, "\n"),
+				expected: "Node-Alpine:123",
+			},
+		}
+
+		for _, p := range pats {
+			got, err := parser.LatestAny(p.doc)
+
+			require.Nil(t, err)
+			assert.Equal(t, p.expected, got)
+		}
+	}
+
+	{
+		// Fail cases.
+		pats := []pattern{
+			{
+				doc: strings.Join([]string{}, "\n"),
+			},
+			{
+				doc: strings.Join([]string{
+					"# Hello",
+					"## Unreleased",
+				}, "\n"),
+			},
+			{
+				doc: strings.Join([]string{
+					"# Hello",
+					"## [contains blank]",
+				}, "\n"),
+			},
+		}
+
+		for _, p := range pats {
+			_, err := parser.LatestAny(p.doc)
+
+			require.NotNil(t, err)
+		}
+	}
+}

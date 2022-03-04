@@ -22,6 +22,13 @@ func Run(args []string) error {
 		log.Fatal(err)
 	}
 
+	anyFlag := &cli.BoolFlag{
+		Name:    flagAny,
+		Value:   false,
+		Usage:   "ignore semantic versioning and grab anything inside [string]",
+		Aliases: []string{"a"},
+	}
+
 	dirFlag := &cli.StringFlag{
 		Name:    flagDirectory,
 		Value:   wd,
@@ -82,6 +89,7 @@ func Run(args []string) error {
 				Usage:   "Show the latest released version in current directory",
 				Aliases: []string{"l"},
 				Flags: []cli.Flag{
+					anyFlag,
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
@@ -90,6 +98,18 @@ func Run(args []string) error {
 
 					if err != nil {
 						return err
+					}
+
+					if c.Bool(flagAny) {
+						got, err := parser.LatestAny(doc)
+
+						if err != nil {
+							return err
+						}
+
+						fmt.Println(got)
+
+						return nil
 					}
 
 					got, err := parser.Latest(doc)

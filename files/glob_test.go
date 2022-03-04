@@ -41,7 +41,7 @@ func TestGlob(t *testing.T) {
 		pats := []pattern{
 			{
 				path:  fmt.Sprintf("%s/test", pwd),
-				count: 4,
+				count: 5,
 			},
 			{
 				path:  fmt.Sprintf("%s/test/some", pwd),
