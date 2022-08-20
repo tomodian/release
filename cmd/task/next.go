@@ -22,6 +22,7 @@ func Next(workdir string) *cli.Command {
 		Flags: []cli.Flag{
 			flag.Dir(workdir),
 			flag.Type(workdir),
+			flag.Newline(workdir, false),
 		},
 		Action: func(c *cli.Context) error {
 
@@ -66,6 +67,7 @@ func Next(workdir string) *cli.Command {
 
 			tflag := c.String(flagkey.Type)
 
+			// Print all possible versions when user did not specify the specific type.
 			if tflag == "" {
 				fmt.Println("")
 				fmt.Println("Latest released version:", chalk.Magenta.Color(ver.String()))
@@ -86,20 +88,30 @@ func Next(workdir string) *cli.Command {
 				os.Exit(1)
 			}
 
+			var out = ""
+
 			switch vtype {
 
 			case parser.MajorVersion:
-				fmt.Print(ver.Increment(parser.MajorVersion).String())
-				return nil
+				out = ver.Increment(parser.MajorVersion).String()
 
 			case parser.MinorVersion:
-				fmt.Print(ver.Increment(parser.MinorVersion).String())
-				return nil
+				out = ver.Increment(parser.MinorVersion).String()
 
 			case parser.PatchVersion:
-				fmt.Print(ver.Increment(parser.PatchVersion).String())
+				out = ver.Increment(parser.PatchVersion).String()
+			}
+
+			if c.Bool(flagkey.Newline) {
+				fmt.Println(out)
 				return nil
 			}
+
+			// Note for zsh users:
+			// - Newline is always present.
+			// - STDOUT will be suffixed with percentage sign `%`, which could be muted in zsh configuration.
+			//   https://unix.stackexchange.com/questions/167582/why-zsh-ends-a-line-with-a-highlighted-percent-symbol
+			fmt.Print(out)
 
 			return nil
 		},

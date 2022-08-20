@@ -20,7 +20,7 @@ Run `release` to show full list of commands and flags.
 
 ### List all CHANGELOG.md
 
-This command will show you all CHANGELOG.md files recursively.
+`release target` will show you all CHANGELOG.md files recursively.
 
     release target
     release target --dir path/to/entrypoint
@@ -28,13 +28,15 @@ This command will show you all CHANGELOG.md files recursively.
 
 ### See unreleased changes
 
-Grab `[Unreleased]` sections of all CHANGELOG.md files recursively.
+`release unreleased` will grab `[Unreleased]` sections of all CHANGELOG.md files recursively.
 
     release unreleased
     release unreleased --dir path/to/entrypoint
     release u -d path/to/entrypoint
 
 ### See previous versions
+
+`release show` will output all previous version histories.
 
     release show -v 0.1.0
     release show -v 0.1.0 --dir path/to/entrypoint
@@ -43,11 +45,12 @@ Grab `[Unreleased]` sections of all CHANGELOG.md files recursively.
 ### Show the latest released version in current directory
 
     release latest
+    release latest --newline=false
     release l
 
 ### Bump all [Unreleased] sections to given version
 
-By default, `release` will ask you for confirmation.
+By default, `release to -v X.Y.Z` will ask you for confirmation.
 
     release to -v 0.2.0
 
@@ -67,7 +70,7 @@ If you want to integrate with CI pipeline, use `--force` or `-f`.
 
 ### See next release version
 
-`release` will suggest you the next available version.
+`release next` will suggest you the next available version.
 
     release next
 
@@ -89,6 +92,11 @@ The words `major`, `minor` and `patch` comes from [Semantic Versioning 2.0.0](ht
 
     release next --type patch
     0.8.1
+
+Note this command will not add newline when `--type` flag is specified.
+Use `--newline` flag if you prefer to see the newline.
+
+    release next --type major --newline
 
 [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) idiom is also supported.
 
