@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Separated subcommands into task package
 - Separated flags and keys into dedicated packages
 
 ## [0.9.2] - 2021-07-14
