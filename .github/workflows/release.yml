@@ -15,32 +15,23 @@ jobs:
       # https://github.com/actions/setup-go/issues/27#issuecomment-549102955
       - name: Build
         run: |
-          go get github.com/mitchellh/gox
           export PATH=${PATH}:`go env GOPATH`/bin
+          make install
           make build
 
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      - name: Upload assets
+      - name: Create a release and upload assets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
+          tag_name="${GITHUB_REF##*/}"
+
+          gh release create $tag_name --generate-notes
 
           assets=()
 
           for asset in ./build/*.zip ; do
-            assets+=("-a" "$asset")
+            assets+=(" " "$asset")
           done
 
-          tag_name="${GITHUB_REF##*/}"
-          hub release edit "${assets[@]}" -m "$tag_name" "$tag_name"
+          gh release upload $tag_name "${assets[@]}"

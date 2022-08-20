@@ -1,0 +1,21 @@
+name: Build test
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          export PATH=${PATH}:`go env GOPATH`/bin
+          make install
+          make build
