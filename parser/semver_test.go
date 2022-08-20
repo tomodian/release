@@ -227,6 +227,21 @@ func TestSemanticVersionIncrement(t *testing.T) {
 			typ: parser.PatchVersion,
 			in:  parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
 		},
+		{
+			exp: "10.0.0",
+			typ: parser.MajorVersion,
+			in:  parser.SemanticVersion{Major: 9, Minor: 0, Patch: 0},
+		},
+		{
+			exp: "0.10.0",
+			typ: parser.MinorVersion,
+			in:  parser.SemanticVersion{Major: 0, Minor: 9, Patch: 0},
+		},
+		{
+			exp: "0.0.10",
+			typ: parser.PatchVersion,
+			in:  parser.SemanticVersion{Major: 0, Minor: 0, Patch: 9},
+		},
 	}
 
 	for _, p := range pats {

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2022-08-20
+
+### Added
+
+- Added newline flag and implemented in 'next' task
+
+### Changed
+
+- Updated README
+- Separated flag functions into cmd/task/flag packages
+- Separated subcommands into task package
+- Separated flags and keys into dedicated packages
+
 ## [0.9.2] - 2021-07-14
 
 ### Fixed
