@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added build test
+
 ### Fixed
 
 - Replaced broken actions/release with gh cli

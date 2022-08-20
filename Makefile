@@ -19,6 +19,7 @@ build: clean
 	@echo "Building.."
 	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}" \
 		-osarch="darwin/amd64" \
+		-osarch="darwin/arm64" \
 		-osarch="linux/arm" \
 		-osarch="linux/amd64" \
 		-osarch="windows/amd64"
@@ -29,6 +30,7 @@ build: clean
 build-darwin: clean
 	@echo "Building.."
 	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}" \
+		-osarch="darwin/amd64" \
 		-osarch="darwin/arm64"
 	@echo "Bundling.."
 	$(MAKE) bundle-nix
