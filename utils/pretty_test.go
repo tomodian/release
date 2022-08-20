@@ -21,6 +21,14 @@ func TestPretty(t *testing.T) {
 		},
 		{
 			expected: "Title",
+			input:    "# Title",
+		},
+		{
+			expected: "Title",
+			input:    "## Title",
+		},
+		{
+			expected: "Title",
 			input:    "### Title",
 		},
 		{
