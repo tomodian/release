@@ -15,8 +15,8 @@ jobs:
       # https://github.com/actions/setup-go/issues/27#issuecomment-549102955
       - name: Build
         run: |
-          go get github.com/mitchellh/gox
           export PATH=${PATH}:`go env GOPATH`/bin
+          make install
           make build
 
       - name: Create a release and upload assets
