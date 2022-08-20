@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Replaced broken actions/release with gh cli
+
 ## [0.8.0] - 2021-04-27
 
 ### Added
