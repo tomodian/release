@@ -42,6 +42,13 @@ func TestUpdate(t *testing.T) {
 	}
 
 	{
+		// Fail case, non-existent path.
+		err := files.Update("non-existent", "foo")
+
+		require.Nil(t, err)
+	}
+
+	{
 		// Success cases.
 		pats := []pattern{
 			{
