@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added newline flag and implemented in 'next' task
+
 ### Changed
 
+- Updated README
 - Separated flag functions into cmd/task/flag packages
 - Separated subcommands into task package
 - Separated flags and keys into dedicated packages

@@ -20,6 +20,7 @@ func Latest(workdir string) *cli.Command {
 		Flags: []cli.Flag{
 			flag.Any(workdir),
 			flag.Dir(workdir),
+			flag.Newline(workdir, true),
 		},
 		Action: func(c *cli.Context) error {
 
@@ -47,7 +48,12 @@ func Latest(workdir string) *cli.Command {
 				return err
 			}
 
-			fmt.Println(got)
+			if c.Bool(flagkey.Newline) {
+				fmt.Println(got)
+				return nil
+			}
+
+			fmt.Print(got)
 
 			return nil
 		},
