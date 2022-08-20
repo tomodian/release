@@ -4,6 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"release/cmd/commandkey"
+
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,10 +17,10 @@ func TestRun(t *testing.T) {
 		// Success cases.
 		pats := []string{
 			"",
-			cmdTargets, "target", "t",
-			cmdUnreleased, "u",
+			commandkey.Targets, "target", "t",
+			commandkey.Unreleased, "u",
 			// cmdNext, "n",
-			cmdTo,
+			commandkey.To,
 		}
 
 		for _, p := range pats {

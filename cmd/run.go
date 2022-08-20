@@ -5,6 +5,9 @@ import (
 	"log"
 	"os"
 
+	"release/cmd/commandkey"
+	"release/cmd/flagkey"
+	"release/cmd/header"
 	"release/files"
 	"release/parser"
 	"release/utils"
@@ -23,28 +26,28 @@ func Run(args []string) error {
 	}
 
 	anyFlag := &cli.BoolFlag{
-		Name:    flagAny,
+		Name:    flagkey.Any,
 		Value:   false,
 		Usage:   "ignore semantic versioning and grab anything inside [string]",
 		Aliases: []string{"a"},
 	}
 
 	dirFlag := &cli.StringFlag{
-		Name:    flagDirectory,
+		Name:    flagkey.Directory,
 		Value:   wd,
 		Usage:   "target `DIR`",
 		Aliases: []string{"d"},
 	}
 
 	ignoreEmptyFlag := &cli.BoolFlag{
-		Name:    flagIgnoreEmpty,
+		Name:    flagkey.IgnoreEmpty,
 		Value:   false,
 		Usage:   "ignore output for changelog without changes",
 		Aliases: []string{"i"},
 	}
 
 	verFlag := &cli.StringFlag{
-		Name:    flagVersion,
+		Name:    flagkey.Version,
 		Usage:   "target `VERSION`",
 		Value:   parser.Unreleased,
 		Aliases: []string{"v"},
@@ -58,7 +61,7 @@ func Run(args []string) error {
 	}
 
 	typeFlag := &cli.StringFlag{
-		Name:    flagType,
+		Name:    flagkey.Type,
 		Usage:   "Semver `TYPE`: X.Y.Z refers to {major}.{minor}.{patch} or {release}.{feature}.{hotfix}",
 		Aliases: []string{"t"},
 	}
@@ -68,16 +71,16 @@ func Run(args []string) error {
 		Usage: "Manage changelog for your release process 🚀",
 		Commands: []*cli.Command{
 			{
-				Name:    cmdTargets,
+				Name:    commandkey.Targets,
 				Usage:   "List all CHANGELOG.md files",
 				Aliases: []string{"target", "t"},
 				Flags: []cli.Flag{
 					dirFlag,
 				},
 				Action: func(c *cli.Context) error {
-					fmt.Println(utils.Pretty(headingTarget))
+					fmt.Println(utils.Pretty(header.Target))
 
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						fmt.Println(files.Rel(p))
 					}
 
@@ -85,7 +88,7 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:    cmdLatest,
+				Name:    commandkey.Latest,
 				Usage:   "Show the latest released version in current directory",
 				Aliases: []string{"l"},
 				Flags: []cli.Flag{
@@ -100,7 +103,7 @@ func Run(args []string) error {
 						return err
 					}
 
-					if c.Bool(flagAny) {
+					if c.Bool(flagkey.Any) {
 						got, err := parser.LatestAny(doc)
 
 						if err != nil {
@@ -124,7 +127,7 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:    cmdUnreleased,
+				Name:    commandkey.Unreleased,
 				Usage:   fmt.Sprintf("List all changes for %s", parser.Unreleased),
 				Aliases: []string{"u"},
 				Flags: []cli.Flag{
@@ -133,7 +136,7 @@ func Run(args []string) error {
 				},
 				Action: func(c *cli.Context) error {
 
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						doc, err := files.Read(p)
 
 						if err != nil {
@@ -146,7 +149,7 @@ func Run(args []string) error {
 							return err
 						}
 
-						if c.Bool(flagIgnoreEmpty) && len(outs) == 0 {
+						if c.Bool(flagkey.IgnoreEmpty) && len(outs) == 0 {
 							continue
 						}
 
@@ -180,20 +183,20 @@ func Run(args []string) error {
 				},
 				Action: func(c *cli.Context) error {
 
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						doc, err := files.Read(p)
 
 						if err != nil {
 							return err
 						}
 
-						outs, err := parser.Show(doc, c.String(flagVersion))
+						outs, err := parser.Show(doc, c.String(flagkey.Version))
 
 						if err != nil {
 							return err
 						}
 
-						if c.Bool(flagIgnoreEmpty) && len(outs) == 0 {
+						if c.Bool(flagkey.IgnoreEmpty) && len(outs) == 0 {
 							continue
 						}
 
@@ -217,39 +220,39 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:  cmdTo,
+				Name:  commandkey.To,
 				Usage: "Bump all [Unreleased] sections to given version",
 				Flags: []cli.Flag{
 					verFlagRequired,
 					dirFlag,
 					&cli.BoolFlag{
-						Name:    flagForce,
+						Name:    flagkey.Force,
 						Usage:   "Force without prompt, Mainly for CI environment",
 						Aliases: []string{"f"},
 					},
 				},
 				Action: func(c *cli.Context) error {
 
-					v, err := parser.Version(c.String(flagVersion))
+					v, err := parser.Version(c.String(flagkey.Version))
 
 					if err != nil {
 						return err
 					}
 
-					targets := files.Glob(c.String(flagDirectory))
+					targets := files.Glob(c.String(flagkey.Directory))
 
 					if len(targets) == 0 {
 						fmt.Println("(nothing found)")
 						return nil
 					}
 
-					fmt.Println(chalk.Magenta.Color(headingTarget))
+					fmt.Println(chalk.Magenta.Color(header.Target))
 
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						fmt.Println(files.Rel(p))
 					}
 
-					if !c.Bool(flagForce) {
+					if !c.Bool(flagkey.Force) {
 						agreed := "yes"
 
 						prompt := promptui.Prompt{
@@ -270,7 +273,7 @@ func Run(args []string) error {
 
 					fmt.Println("")
 
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						fmt.Printf("%s --> ", files.Rel(p))
 
 						doc, err := files.Read(p)
@@ -279,7 +282,7 @@ func Run(args []string) error {
 							return err
 						}
 
-						body, err := parser.To(doc, c.String(flagVersion))
+						body, err := parser.To(doc, c.String(flagkey.Version))
 
 						if err != nil {
 							return err
@@ -304,7 +307,7 @@ func Run(args []string) error {
 				},
 			},
 			{
-				Name:    cmdNext,
+				Name:    commandkey.Next,
 				Usage:   "Suggest next version by checking CHANGELOGs recursively",
 				Aliases: []string{"n"},
 				Flags: []cli.Flag{
@@ -316,7 +319,7 @@ func Run(args []string) error {
 					latests := map[string]parser.SemanticVersion{}
 
 					// Construct a map of versions.
-					for _, p := range files.Glob(c.String(flagDirectory)) {
+					for _, p := range files.Glob(c.String(flagkey.Directory)) {
 						doc, err := files.Read(p)
 
 						if err != nil {
@@ -352,7 +355,7 @@ func Run(args []string) error {
 					vers = parser.SortVersions(vers)
 					ver := vers[len(vers)-1]
 
-					tflag := c.String(flagType)
+					tflag := c.String(flagkey.Type)
 
 					if tflag == "" {
 						fmt.Println("")
