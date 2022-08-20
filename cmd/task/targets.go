@@ -6,6 +6,7 @@ import (
 	"release/cmd/commandkey"
 	"release/cmd/flagkey"
 	"release/cmd/header"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/utils"
 
@@ -19,7 +20,7 @@ func Targets(workdir string) *cli.Command {
 		Usage:   "List all CHANGELOG.md files",
 		Aliases: []string{"target", "t"},
 		Flags: []cli.Flag{
-			dirFlag(workdir),
+			flag.Dir(workdir),
 		},
 		Action: func(c *cli.Context) error {
 			fmt.Println(utils.Pretty(header.Target))

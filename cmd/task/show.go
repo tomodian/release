@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"release/cmd/flagkey"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/parser"
 	"release/utils"
@@ -18,9 +19,9 @@ func Show(workdir string) *cli.Command {
 		Usage:   "Show changes of given version",
 		Aliases: []string{"s"},
 		Flags: []cli.Flag{
-			verFlagRequired(workdir),
-			dirFlag(workdir),
-			ignoreEmptyFlag(workdir),
+			flag.VersionRequired(workdir),
+			flag.Dir(workdir),
+			flag.IgnoreEmpty(workdir),
 		},
 		Action: func(c *cli.Context) error {
 
