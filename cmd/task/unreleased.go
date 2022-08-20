@@ -5,6 +5,7 @@ import (
 
 	"release/cmd/commandkey"
 	"release/cmd/flagkey"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/parser"
 	"release/utils"
@@ -18,8 +19,8 @@ func Unreleased(workdir string) *cli.Command {
 		Usage:   fmt.Sprintf("List all changes for %s", parser.Unreleased),
 		Aliases: []string{"u"},
 		Flags: []cli.Flag{
-			dirFlag(workdir),
-			ignoreEmptyFlag(workdir),
+			flag.Dir(workdir),
+			flag.IgnoreEmpty(workdir),
 		},
 		Action: func(c *cli.Context) error {
 

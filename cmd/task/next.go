@@ -6,6 +6,7 @@ import (
 
 	"release/cmd/commandkey"
 	"release/cmd/flagkey"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/parser"
 
@@ -19,8 +20,8 @@ func Next(workdir string) *cli.Command {
 		Usage:   "Suggest next version by checking CHANGELOGs recursively",
 		Aliases: []string{"n"},
 		Flags: []cli.Flag{
-			dirFlag(workdir),
-			typeFlag(workdir),
+			flag.Dir(workdir),
+			flag.Type(workdir),
 		},
 		Action: func(c *cli.Context) error {
 

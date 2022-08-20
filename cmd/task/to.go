@@ -6,6 +6,7 @@ import (
 	"release/cmd/commandkey"
 	"release/cmd/flagkey"
 	"release/cmd/header"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/parser"
 
@@ -19,13 +20,9 @@ func To(workdir string) *cli.Command {
 		Name:  commandkey.To,
 		Usage: "Bump all [Unreleased] sections to given version",
 		Flags: []cli.Flag{
-			verFlagRequired(workdir),
-			dirFlag(workdir),
-			&cli.BoolFlag{
-				Name:    flagkey.Force,
-				Usage:   "Force without prompt, Mainly for CI environment",
-				Aliases: []string{"f"},
-			},
+			flag.VersionRequired(workdir),
+			flag.Dir(workdir),
+			flag.Force(workdir),
 		},
 		Action: func(c *cli.Context) error {
 

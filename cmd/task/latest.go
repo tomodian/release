@@ -5,6 +5,7 @@ import (
 
 	"release/cmd/commandkey"
 	"release/cmd/flagkey"
+	"release/cmd/task/flag"
 	"release/files"
 	"release/parser"
 
@@ -17,8 +18,8 @@ func Latest(workdir string) *cli.Command {
 		Usage:   "Show the latest released version in current directory",
 		Aliases: []string{"l"},
 		Flags: []cli.Flag{
-			anyFlag(workdir),
-			dirFlag(workdir),
+			flag.Any(workdir),
+			flag.Dir(workdir),
 		},
 		Action: func(c *cli.Context) error {
 
