@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added build configuration for darwin/arm64
 
+### Changed
+
+- Switched to go install
+
 ## [0.10.0] - 2022-08-20
 
 ### Added

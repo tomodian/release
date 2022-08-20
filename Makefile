@@ -3,7 +3,7 @@
 BUILD := ./build
 
 install:
-	go get github.com/mitchellh/gox
+	go install github.com/mitchellh/gox@latest
 
 clean:
 	mkdir -p $(BUILD)
