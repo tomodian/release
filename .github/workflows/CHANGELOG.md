@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.12.0] - 2022-09-03
+
+### Fixed
+
+- Upload was failing due to wrong listing
+
 ## [0.11.0] - 2022-08-20
 
 ### Added

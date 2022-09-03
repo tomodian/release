@@ -3,11 +3,11 @@ package task
 import (
 	"fmt"
 
-	"release/cmd/flagkey"
-	"release/cmd/task/flag"
-	"release/files"
-	"release/parser"
-	"release/utils"
+	"github.com/tomodian/release/cmd/flagkey"
+	"github.com/tomodian/release/cmd/task/flag"
+	"github.com/tomodian/release/files"
+	"github.com/tomodian/release/parser"
+	"github.com/tomodian/release/utils"
 
 	"github.com/ttacon/chalk"
 	"github.com/urfave/cli/v2"

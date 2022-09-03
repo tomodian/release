@@ -5,20 +5,25 @@ import (
 	"os"
 	"testing"
 
-	"release/files"
+	"github.com/tomodian/release/files"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGlob(t *testing.T) {
+
+	pwd, err := os.Getwd()
+
+	require.Nil(t, err)
+
 	type pattern struct {
 		path  string
 		count int
 	}
 
 	{
-		// Fail cases.
+		// Fail cases, panic.
 		pats := []pattern{
 			{
 				path: "[-]",
@@ -33,11 +38,14 @@ func TestGlob(t *testing.T) {
 	}
 
 	{
+		// Fail case, ensure vendor directories are not included.
+		path := fmt.Sprintf("%s/test/vendors", pwd)
+
+		assert.Empty(t, files.Glob(path))
+	}
+
+	{
 		// Success cases.
-		pwd, err := os.Getwd()
-
-		require.Nil(t, err)
-
 		pats := []pattern{
 			{
 				path:  fmt.Sprintf("%s/test", pwd),

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"release/cmd/task"
+	"github.com/tomodian/release/cmd/task"
 
 	"github.com/urfave/cli/v2"
 )

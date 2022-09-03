@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"release/utils"
+	"github.com/tomodian/release/utils"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -18,6 +18,14 @@ func TestPretty(t *testing.T) {
 		{
 			expected: utils.EmptyLine,
 			input:    utils.EmptyLine,
+		},
+		{
+			expected: "Title",
+			input:    "# Title",
+		},
+		{
+			expected: "Title",
+			input:    "## Title",
 		},
 		{
 			expected: "Title",

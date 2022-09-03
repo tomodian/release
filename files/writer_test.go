@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"release/files"
+	"github.com/tomodian/release/files"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -39,6 +39,13 @@ func TestUpdate(t *testing.T) {
 
 			require.NotNilf(t, err, "%s", err)
 		}
+	}
+
+	{
+		// Fail case, non-existent path.
+		err := files.Update("non-existent", "foo")
+
+		require.Nil(t, err)
 	}
 
 	{
