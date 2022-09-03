@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"release/parser"
+	"github.com/tomodian/release/parser"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

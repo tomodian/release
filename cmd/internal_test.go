@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"release/cmd/commandkey"
+	"github.com/tomodian/release/cmd/commandkey"
 
 	"github.com/stretchr/testify/require"
 )

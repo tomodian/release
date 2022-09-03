@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added more tests
 
+### Changed
+
+- Changed module name to github.com/tomodian/release
+
 ### Removed
 
 - Removed Codecov config which was ignoring cmd directory

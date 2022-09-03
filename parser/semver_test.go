@@ -3,7 +3,7 @@ package parser_test
 import (
 	"testing"
 
-	"release/parser"
+	"github.com/tomodian/release/parser"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"

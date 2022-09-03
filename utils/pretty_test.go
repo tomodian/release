@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"release/utils"
+	"github.com/tomodian/release/utils"
 
 	"github.com/stretchr/testify/assert"
 )
