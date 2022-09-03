@@ -1,8 +1,8 @@
 package flag
 
 import (
-	"release/cmd/flagkey"
-	"release/parser"
+	"github.com/tomodian/release/cmd/flagkey"
+	"github.com/tomodian/release/parser"
 
 	"github.com/urfave/cli/v2"
 )

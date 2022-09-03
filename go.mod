@@ -1,4 +1,4 @@
-module release
+module github.com/tomodian/release
 
 go 1.14
 

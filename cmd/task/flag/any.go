@@ -1,7 +1,7 @@
 package flag
 
 import (
-	"release/cmd/flagkey"
+	"github.com/tomodian/release/cmd/flagkey"
 
 	"github.com/urfave/cli/v2"
 )

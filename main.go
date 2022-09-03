@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"release/cmd"
+	"github.com/tomodian/release/cmd"
 )
 
 func main() {

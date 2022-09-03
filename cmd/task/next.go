@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"release/cmd/commandkey"
-	"release/cmd/flagkey"
-	"release/cmd/task/flag"
-	"release/files"
-	"release/parser"
+	"github.com/tomodian/release/cmd/commandkey"
+	"github.com/tomodian/release/cmd/flagkey"
+	"github.com/tomodian/release/cmd/task/flag"
+	"github.com/tomodian/release/files"
+	"github.com/tomodian/release/parser"
 
 	"github.com/ttacon/chalk"
 	"github.com/urfave/cli/v2"
