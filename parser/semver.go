@@ -52,11 +52,7 @@ func (c SemanticVersion) IsEqual(in *SemanticVersion) bool {
 		return false
 	}
 
-	if c.Major == in.Major && c.Minor == in.Minor && c.Patch == in.Patch {
-		return true
-	}
-
-	return false
+	return c.Major == in.Major && c.Minor == in.Minor && c.Patch == in.Patch
 }
 
 // IsGreater compares internal version with given version.
@@ -85,6 +81,12 @@ func (c SemanticVersion) String() string {
 }
 
 // Increment version according to given type.
+// The type must be one of Major/Minor/Patch.
+//
+// Given 1.2.3 as example:
+// - Increment(Major) --> 2.2.3
+// - Increment(Minor) --> 1.3.3
+// - Increment(Patch) --> 1.2.4
 func (c SemanticVersion) Increment(in VersionType) SemanticVersion {
 	switch in {
 	case MajorVersion:
