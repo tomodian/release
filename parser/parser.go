@@ -10,8 +10,9 @@ import (
 	"github.com/blang/semver/v4"
 )
 
-// List of tags.
 const (
+	// Unreleased tag is defined in keepachangelog 1.0.0.
+	// https://keepachangelog.com/en/1.0.0/
 	Unreleased        = "[Unreleased]"
 	unreleasedHeading = "## [Unreleased]"
 )

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0] - 2022-09-18
+
+### Added
+
+- Added test for main.go
+
+### Changed
+
+- More comments on functions
+- Changed to Go 1.17
+
+### Removed
+
+- Removed unused git handler
+
 ## [0.12.0] - 2022-09-03
 
 ### Added
