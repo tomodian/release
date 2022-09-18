@@ -66,7 +66,8 @@ func ignore(path string) bool {
 	return false
 }
 
-// Glob seeks for all CHANGELOG.md in given directory.
+// Glob seeks for all changelog files from the given directory, and returns a slice of absolute file path.
+// This function excludes common auto-generated directories, such as node_modules and coverage reports.
 func Glob(d string) []string {
 	p := fmt.Sprintf("%s/**/CHANGELOG.md", d)
 
@@ -95,7 +96,8 @@ func Glob(d string) []string {
 	return outs
 }
 
-// Rel returns relative path.
+// Rel takes an arbitary path, and returns relative path from the current working directory.
+// It will terminate the context when the given path is broken.
 func Rel(path string) string {
 	wd, err := os.Getwd()
 
