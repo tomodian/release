@@ -22,7 +22,6 @@ var (
 		"1.2.3a",
 		"1 2 3",
 		"v100",
-		"v1.2.3",
 		"v1.20",
 		"1.20.a",
 		"🍎",
@@ -49,6 +48,10 @@ func TestNewSemanticVersion(t *testing.T) {
 			{
 				expected: parser.SemanticVersion{Major: 123, Minor: 456, Patch: 789},
 				sample:   "123.456.789",
+			},
+			{
+				expected: parser.SemanticVersion{Major: 1, Minor: 2, Patch: 3},
+				sample:   "v1.2.3",
 			},
 		}
 

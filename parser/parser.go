@@ -20,13 +20,24 @@ const (
 // Version transforms 0.1.0 to [0.1.0].
 // Returns error when given input is not following SemVar.
 func Version(in string) (string, error) {
+	githubStyleSemver := false
+
+	if len(in) > 0 && in[0] == 'v' {
+		in = in[1:]
+		githubStyleSemver = true
+	}
+
 	v, err := semver.Make(in)
 
 	if err != nil {
 		return "", errors.New("given version is not compatible with Semantic Versioning")
 	}
 
-	return fmt.Sprintf("[%s]", v.String()), nil
+	if githubStyleSemver == true {
+		return fmt.Sprintf("[v%s]", v.String()), nil
+	} else {
+		return fmt.Sprintf("[%s]", v.String()), nil
+	}
 }
 
 // To returns document replaced with given version.
@@ -135,7 +146,7 @@ func Show(doc string, ver string) ([]string, error) {
 // This operation simply matches to the first h2 header.
 func Latest(doc string) (string, error) {
 
-	re := regexp.MustCompile(`## \[(\d*\.\d*\.\d*)\]`)
+	re := regexp.MustCompile(`## \[([v]?\d*\.\d*\.\d*)\]`)
 
 	for _, line := range strings.Split(doc, "\n") {
 		got := re.FindStringSubmatch(line)
