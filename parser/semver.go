@@ -103,6 +103,12 @@ func (c SemanticVersion) Increment(in VersionType) SemanticVersion {
 func CastVersion(name, val string) (int, error) {
 	const failcode = -1
 
+	if name == "major" {
+		if val[0] == 'v' {
+			val = val[1:]
+		}
+	}
+
 	i, err := strconv.Atoi(val)
 
 	if err != nil {
