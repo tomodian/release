@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2023-09-04
+
+### Added
+
+- GiHub styled vX.Y.Z semver, by @oz-rw
+
 ## [0.13.0] - 2022-09-18
 
 ### Added

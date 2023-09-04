@@ -110,6 +110,13 @@ Use `--newline` flag if you prefer to see the newline.
     release next --type hotfix
     0.8.1
 
+### Github-style semver `vx.y.z`
+
+The tool also supports [Github-style semver](https://semver.org/#is-v123-a-semantic-version):
+
+    release show -v v0.1.0
+    release to -v v0.2.0
+
 ## Development
 
 ### Run

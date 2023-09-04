@@ -18,6 +18,7 @@ func TestOpenRepository(t *testing.T) {
 			"0.1.0",
 			"0.1.0-beta",
 			"100.200.300",
+			"v1.2.3",
 		}
 
 		for _, p := range pats {
