@@ -23,113 +23,141 @@ Run `release` to show full list of commands and flags.
 
 `release target` will show you all CHANGELOG.md files recursively.
 
-    release target
-    release target --dir path/to/entrypoint
-    release t -d path/to/entrypoint
+```bash
+release target
+release target --dir path/to/entrypoint
+release t -d path/to/entrypoint
+```
 
 ### See unreleased changes
 
 `release unreleased` will grab `[Unreleased]` sections of all CHANGELOG.md files recursively.
 
-    release unreleased
-    release unreleased --dir path/to/entrypoint
-    release u -d path/to/entrypoint
+```bash
+release unreleased
+release unreleased --dir path/to/entrypoint
+release u -d path/to/entrypoint
+```
 
 ### See previous versions
 
 `release show` will output all previous version histories.
 
-    release show -v 0.1.0
-    release show -v 0.1.0 --dir path/to/entrypoint
-    release s -v 0.1.0 -d path/to/entrypoint
+```bash
+release show -v 0.1.0
+release show -v 0.1.0 --dir path/to/entrypoint
+release s -v 0.1.0 -d path/to/entrypoint
+```
 
 ### Show the latest released version in current directory
 
-    release latest
-    release latest --newline=false
-    release l
+```bash
+release latest
+release latest --newline=false
+release l
+```
 
 ### Bump all [Unreleased] sections to given version
 
 By default, `release to -v X.Y.Z` will ask you for confirmation.
 
-    release to -v 0.2.0
+```bash
+release to -v 0.2.0
 
-    # Targets
-    ## .github/workflows/CHANGELOG.md
-    ## CHANGELOG.md
-    ✔ Enter `yes` to update all CHANGELOGs to version [0.8.0]: yes
+# Targets
+## .github/workflows/CHANGELOG.md
+## CHANGELOG.md
+✔ Enter `yes` to update all CHANGELOGs to version [0.8.0]: yes
+```
 
 If you want to integrate with CI pipeline, use `--force` or `-f`.
 
-    release to -v 0.2.0 --force
+```bash
+release to -v 0.2.0 --force
 
-    # Targets
-    ## .github/workflows/CHANGELOG.md --> ✅
-    ## CHANGELOG.md --> ✅
-    Done👍
+# Targets
+## .github/workflows/CHANGELOG.md --> ✅
+## CHANGELOG.md --> ✅
+Done👍
+```
 
 ### See next release version
 
 `release next` will suggest you the next available version.
 
-    release next
+```bash
+release next
 
-    Latest released version: 0.8.0
+Latest released version: 0.8.0
 
-    Suggestions for next release:
-       - Major / Release --> 1.0.0
-       - Minor / Feature --> 0.9.0
-       - Patch / Hotfix  --> 0.8.1
+Suggestions for next release:
+- Major / Release --> 1.0.0
+- Minor / Feature --> 0.9.0
+- Patch / Hotfix  --> 0.8.1
+```
 
 For CI integrations, add `--type` flag.
 The words `major`, `minor` and `patch` comes from [Semantic Versioning 2.0.0](https://semver.org) idiom.
 
-    release next --type major
-    1.0.0
+```bash
+release next --type major
+1.0.0
 
-    release next --type minor
-    0.9.0
+release next --type minor
+0.9.0
 
-    release next --type patch
-    0.8.1
+release next --type patch
+0.8.1
+```
 
 Note this command will not add newline when `--type` flag is specified.
 Use `--newline` flag if you prefer to see the newline.
 
-    release next --type major --newline
+```bash
+release next --type major --newline
+```
 
 [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) idiom is also supported.
 
-    release next --type release
-    1.0.0
+```bash
+release next --type release
+1.0.0
 
-    release next --type feature
-    0.9.0
+release next --type feature
+0.9.0
 
-    release next --type hotfix
-    0.8.1
+release next --type hotfix
+0.8.1
+```
 
 ### Github-style semver `vx.y.z`
 
 The tool also supports [Github-style semver](https://semver.org/#is-v123-a-semantic-version):
 
-    release show -v v0.1.0
-    release to -v v0.2.0
+```bash
+release show -v v0.1.0
+release to -v v0.2.0
+```
 
 ## Development
 
 ### Run
 
-    make run
+```bash
+make run
+```
 
 ### Test
 
-    make test
+```bash
+make test
+```
 
 ### Build
 
-    make build
+```bash
+make build
+```
 
 ## License
 
