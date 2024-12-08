@@ -1,15 +1,19 @@
 name: Release
 
 on:
+  pull_request:
+    branches:
+      # Remove after debug.
+      - feature/notarization
   push:
     tags:
       - "*.*.*"
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       # Tips on Go binary:
       # https://github.com/actions/setup-go/issues/27#issuecomment-549102955
@@ -18,6 +22,9 @@ jobs:
           export PATH=${PATH}:`go env GOPATH`/bin
           make install
           make build
+        env:
+          QUILL_SIGN_P12:      ${{ secrets.APPLE_P12_BASE64_ENCODED }}
+          QUILL_SIGN_PASSWORD: ${{ secrets.APPLE_P12_PASSWORD }}
 
       - name: Create a release and upload assets
         env:
