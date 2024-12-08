@@ -1,7 +1,7 @@
 # Release
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/tomodian/release.svg)](https://pkg.go.dev/github.com/tomodian/release)
-![Test on Linux](https://github.com/tomodian/release/workflows/Test%20on%20Linux/badge.svg?branch=develop)
+[![Test on Linux](https://github.com/tomodian/release/actions/workflows/test.linux.yml/badge.svg)](https://github.com/tomodian/release/actions/workflows/test.linux.yml)
 [![Release](https://github.com/tomodian/release/actions/workflows/release.yml/badge.svg)](https://github.com/tomodian/release/actions/workflows/release.yml)
 [![codecov](https://codecov.io/gh/tomodian/release/branch/develop/graph/badge.svg)](https://codecov.io/gh/tomodian/release)
 
