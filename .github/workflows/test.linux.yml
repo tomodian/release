@@ -11,14 +11,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup runtime
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           node-version: ${{ matrix.node }}
 
