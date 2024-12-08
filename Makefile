@@ -4,6 +4,7 @@ BUILD := ./build
 
 install:
 	go install github.com/mitchellh/gox@latest
+	curl -sSfL https://raw.githubusercontent.com/anchore/quill/main/install.sh | sh -s -- -b . v0.4.2
 
 clean:
 	mkdir -p $(BUILD)
@@ -32,6 +33,11 @@ build-darwin: clean
 	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}" \
 		-osarch="darwin/amd64" \
 		-osarch="darwin/arm64"
+
+	@echo "Notarizing.."
+	./quill sign-and-notarize ./build/release_darwin_amd64 || true
+	./quill sign-and-notarize ./build/release_darwin_arm64 || true
+
 	@echo "Bundling.."
 	$(MAKE) bundle-nix
 

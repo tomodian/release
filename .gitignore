@@ -18,6 +18,7 @@
 .vscode
 build
 coverage.txt
+quill
 
 # Only applies to top-level directories.
 /coverage
