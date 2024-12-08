@@ -131,17 +131,6 @@ The tool also supports [Github-style semver](https://semver.org/#is-v123-a-seman
 
     make build
 
-## Issues?
-
-### MacOS "developer cannot be verified" error
-
-Note MacOS Catalina will warn you when executing this binary in command-line.
-Follow these steps to give your permission.
-
-1. In the Finder on your Mac, unzip the `release` app and open the `release` binary
-2. MacOS will prompt you to enable the binary, so answer yes
-3. Now you can use the binary from command-line.
-
 ## License
 
 [Mozilla Public License v2.0](LICENSE)
