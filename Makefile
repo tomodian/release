@@ -24,22 +24,14 @@ build: clean
 		-osarch="linux/arm" \
 		-osarch="linux/amd64" \
 		-osarch="windows/amd64"
-	@echo "Bundling.."
-	$(MAKE) bundle-nix
-	$(MAKE) bundle-windows
 
-build-darwin: clean
-	@echo "Building.."
-	gox -output="$(BUILD)/{{.Dir}}_{{.OS}}_{{.Arch}}" \
-		-osarch="darwin/amd64" \
-		-osarch="darwin/arm64"
-
-	@echo "Notarizing.."
+	@echo "Notarizing MacOS binary.."
 	./quill sign-and-notarize ./build/release_darwin_amd64 || true
 	./quill sign-and-notarize ./build/release_darwin_arm64 || true
 
 	@echo "Bundling.."
 	$(MAKE) bundle-nix
+	$(MAKE) bundle-windows
 
 run:
 	go run main.go
