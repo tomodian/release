@@ -1,10 +1,6 @@
 name: Release
 
 on:
-  pull_request:
-    branches:
-      # Remove after debug.
-      - feature/notarization
   push:
     tags:
       - "*.*.*"
