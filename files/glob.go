@@ -64,7 +64,8 @@ func ignore(path string) bool {
 	return false
 }
 
-// Glob seeks for all changelog files from the given directory, and returns a slice of absolute file path.
+// Glob seeks for all changelog files from the given directory, and returns a slice of absolute file paths
+// along with an error. Malformed path patterns are reported via the error instead of causing a panic.
 // This function excludes common auto-generated directories, such as node_modules and coverage reports.
 func Glob(d string) ([]string, error) {
 	p := fmt.Sprintf("%s/**/CHANGELOG.md", d)
