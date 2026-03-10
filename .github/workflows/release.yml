@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+
       # Tips on Go binary:
       # https://github.com/actions/setup-go/issues/27#issuecomment-549102955
       - name: Build
