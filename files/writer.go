@@ -15,7 +15,7 @@ func Update(path, doc string) error {
 	info, err := os.Stat(path)
 
 	if err != nil {
-		return nil
+		return err
 	}
 
 	if err := os.WriteFile(path, []byte(doc), info.Mode()); err != nil {

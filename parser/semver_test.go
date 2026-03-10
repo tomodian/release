@@ -142,20 +142,20 @@ func TestSemanticVersionIsGreater(t *testing.T) {
 		// Truthy cases.
 		pats := []pattern{
 			{
-				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
-				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
+				a: &parser.SemanticVersion{Major: 4, Minor: 5, Patch: 6},
+				b: &parser.SemanticVersion{Major: 1, Minor: 2, Patch: 3},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
-				b: &parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
+				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
+				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
-				b: &parser.SemanticVersion{Major: 1, Minor: 0, Patch: 0},
+				a: &parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
+				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 1, Minor: 2, Patch: 3},
-				b: &parser.SemanticVersion{Major: 4, Minor: 5, Patch: 6},
+				a: &parser.SemanticVersion{Major: 1, Minor: 0, Patch: 0},
+				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
 			},
 		}
 
@@ -172,20 +172,20 @@ func TestSemanticVersionIsGreater(t *testing.T) {
 				b: nil,
 			},
 			{
-				a: &parser.SemanticVersion{Major: 4, Minor: 5, Patch: 6},
-				b: &parser.SemanticVersion{Major: 1, Minor: 2, Patch: 3},
+				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 1},
-				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				b: &parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 0, Minor: 1, Patch: 0},
-				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				a: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				b: &parser.SemanticVersion{Major: 1, Minor: 0, Patch: 0},
 			},
 			{
-				a: &parser.SemanticVersion{Major: 1, Minor: 0, Patch: 0},
-				b: &parser.SemanticVersion{Major: 0, Minor: 0, Patch: 0},
+				a: &parser.SemanticVersion{Major: 1, Minor: 2, Patch: 3},
+				b: &parser.SemanticVersion{Major: 4, Minor: 5, Patch: 6},
 			},
 		}
 

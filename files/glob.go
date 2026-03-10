@@ -66,13 +66,13 @@ func ignore(path string) bool {
 
 // Glob seeks for all changelog files from the given directory, and returns a slice of absolute file path.
 // This function excludes common auto-generated directories, such as node_modules and coverage reports.
-func Glob(d string) []string {
+func Glob(d string) ([]string, error) {
 	p := fmt.Sprintf("%s/**/CHANGELOG.md", d)
 
 	paths, err := doublestar.Glob(p)
 
 	if err != nil {
-		panic("malformed path pattern")
+		return nil, fmt.Errorf("malformed path pattern: %w", err)
 	}
 
 	slices.Sort(paths)
@@ -89,7 +89,7 @@ func Glob(d string) []string {
 		outs = append(outs, p)
 	}
 
-	return outs
+	return outs, nil
 }
 
 // Rel takes an arbitary path, and returns relative path from the current working directory.
