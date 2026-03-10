@@ -20,7 +20,7 @@ jobs:
       - name: Setup runtime
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: '1.26.1'
 
       - name: Test
         run: make test
