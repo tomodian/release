@@ -2,7 +2,6 @@ package files
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 )
 
@@ -19,7 +18,7 @@ func Update(path, doc string) error {
 		return nil
 	}
 
-	if err := ioutil.WriteFile(path, []byte(doc), info.Mode()); err != nil {
+	if err := os.WriteFile(path, []byte(doc), info.Mode()); err != nil {
 		return err
 	}
 
