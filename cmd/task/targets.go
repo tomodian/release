@@ -25,12 +25,7 @@ func Targets(workdir string) *cli.Command {
 		Action: func(c *cli.Context) error {
 			fmt.Println(utils.Pretty(header.Target))
 
-			paths, err := files.Glob(c.String(flagkey.Directory))
-			if err != nil {
-				return err
-			}
-
-			for _, p := range paths {
+			for _, p := range files.Glob(c.String(flagkey.Directory)) {
 				fmt.Println(files.Rel(p))
 			}
 

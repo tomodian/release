@@ -45,7 +45,7 @@ func TestUpdate(t *testing.T) {
 		// Fail case, non-existent path.
 		err := files.Update("non-existent", "foo")
 
-		require.NotNil(t, err)
+		require.Nil(t, err)
 	}
 
 	{

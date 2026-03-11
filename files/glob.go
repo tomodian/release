@@ -64,16 +64,15 @@ func ignore(path string) bool {
 	return false
 }
 
-// Glob seeks for all changelog files from the given directory, and returns a slice of absolute file paths
-// along with an error. Malformed path patterns are reported via the error instead of causing a panic.
+// Glob seeks for all changelog files from the given directory, and returns a slice of absolute file path.
 // This function excludes common auto-generated directories, such as node_modules and coverage reports.
-func Glob(d string) ([]string, error) {
+func Glob(d string) []string {
 	p := fmt.Sprintf("%s/**/CHANGELOG.md", d)
 
 	paths, err := doublestar.Glob(p)
 
 	if err != nil {
-		return nil, fmt.Errorf("malformed path pattern: %w", err)
+		panic("malformed path pattern")
 	}
 
 	slices.Sort(paths)
@@ -90,7 +89,7 @@ func Glob(d string) ([]string, error) {
 		outs = append(outs, p)
 	}
 
-	return outs, nil
+	return outs
 }
 
 // Rel takes an arbitary path, and returns relative path from the current working directory.

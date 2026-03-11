@@ -62,13 +62,13 @@ func (c SemanticVersion) IsGreater(in *SemanticVersion) bool {
 	}
 
 	switch {
-	case c.Major > in.Major:
+	case c.Major < in.Major:
 		return true
 
-	case c.Major == in.Major && c.Minor > in.Minor:
+	case c.Major == in.Major && c.Minor < in.Minor:
 		return true
 
-	case c.Major == in.Major && c.Minor == in.Minor && c.Patch > in.Patch:
+	case c.Major == in.Major && c.Minor == in.Minor && c.Patch < in.Patch:
 		return true
 	}
 

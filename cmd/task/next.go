@@ -2,6 +2,7 @@ package task
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/tomodian/release/cmd/commandkey"
 	"github.com/tomodian/release/cmd/flagkey"
@@ -28,12 +29,7 @@ func Next(workdir string) *cli.Command {
 			latests := map[string]parser.SemanticVersion{}
 
 			// Construct a map of versions.
-			paths, err := files.Glob(c.String(flagkey.Directory))
-			if err != nil {
-				return err
-			}
-
-			for _, p := range paths {
+			for _, p := range files.Glob(c.String(flagkey.Directory)) {
 				doc, err := files.Read(p)
 
 				if err != nil {
@@ -53,7 +49,8 @@ func Next(workdir string) *cli.Command {
 				v, err := parser.NewSemanticVersion(lat)
 
 				if err != nil {
-					return err
+					fmt.Println(err)
+					os.Exit(1)
 				}
 
 				latests[lat] = *v
@@ -87,7 +84,8 @@ func Next(workdir string) *cli.Command {
 			vtype, err := parser.AliasedVersion(tflag)
 
 			if err != nil {
-				return err
+				fmt.Println(err)
+				os.Exit(1)
 			}
 
 			var out = ""

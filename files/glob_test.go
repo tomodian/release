@@ -23,7 +23,7 @@ func TestGlob(t *testing.T) {
 	}
 
 	{
-		// Fail cases, should return error.
+		// Fail cases, panic.
 		pats := []pattern{
 			{
 				path: "[-]",
@@ -31,8 +31,9 @@ func TestGlob(t *testing.T) {
 		}
 
 		for _, p := range pats {
-			_, err := files.Glob(p.path)
-			assert.NotNil(t, err)
+			assert.Panics(t, func() {
+				files.Glob(p.path)
+			})
 		}
 	}
 
@@ -40,9 +41,7 @@ func TestGlob(t *testing.T) {
 		// Fail case, ensure vendor directories are not included.
 		path := fmt.Sprintf("%s/test/vendors", pwd)
 
-		got, err := files.Glob(path)
-		require.Nil(t, err)
-		assert.Empty(t, got)
+		assert.Empty(t, files.Glob(path))
 	}
 
 	{
@@ -71,7 +70,7 @@ func TestGlob(t *testing.T) {
 		}
 
 		for _, p := range pats {
-			got, err := files.Glob(p.path)
+			got := files.Glob(p.path)
 
 			require.Nilf(t, err, "%s", p)
 			assert.Equalf(t, p.count, len(got), "%s", p.path)

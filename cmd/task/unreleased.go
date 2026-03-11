@@ -24,12 +24,7 @@ func Unreleased(workdir string) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 
-			paths, err := files.Glob(c.String(flagkey.Directory))
-			if err != nil {
-				return err
-			}
-
-			for _, p := range paths {
+			for _, p := range files.Glob(c.String(flagkey.Directory)) {
 				doc, err := files.Read(p)
 
 				if err != nil {

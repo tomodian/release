@@ -32,11 +32,7 @@ func To(workdir string) *cli.Command {
 				return err
 			}
 
-			targets, err := files.Glob(c.String(flagkey.Directory))
-
-			if err != nil {
-				return err
-			}
+			targets := files.Glob(c.String(flagkey.Directory))
 
 			if len(targets) == 0 {
 				fmt.Println("(nothing found)")
@@ -45,7 +41,7 @@ func To(workdir string) *cli.Command {
 
 			fmt.Println(chalk.Magenta.Color(header.Target))
 
-			for _, p := range targets {
+			for _, p := range files.Glob(c.String(flagkey.Directory)) {
 				fmt.Println(files.Rel(p))
 			}
 
@@ -70,7 +66,7 @@ func To(workdir string) *cli.Command {
 
 			fmt.Println("")
 
-			for _, p := range targets {
+			for _, p := range files.Glob(c.String(flagkey.Directory)) {
 				fmt.Printf("%s --> ", files.Rel(p))
 
 				doc, err := files.Read(p)
