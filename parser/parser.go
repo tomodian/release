@@ -104,7 +104,7 @@ func Show(doc string, ver string) ([]string, error) {
 
 	found := false
 
-	for _, line := range strings.Split(doc, "\n") {
+	for line := range strings.SplitSeq(doc, "\n") {
 		p := fmt.Sprintf("## %s", v)
 
 		if !found && !strings.HasPrefix(line, p) {
@@ -148,7 +148,7 @@ func Latest(doc string) (string, error) {
 
 	re := regexp.MustCompile(`## \[([v]?\d*\.\d*\.\d*)\]`)
 
-	for _, line := range strings.Split(doc, "\n") {
+	for line := range strings.SplitSeq(doc, "\n") {
 		got := re.FindStringSubmatch(line)
 
 		if len(got) != 2 {
@@ -169,7 +169,7 @@ func LatestAny(doc string) (string, error) {
 
 	re := regexp.MustCompile(`## \[(.*)\]`)
 
-	for _, line := range strings.Split(doc, "\n") {
+	for line := range strings.SplitSeq(doc, "\n") {
 		got := re.FindStringSubmatch(line)
 
 		if len(got) != 2 {

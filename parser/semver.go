@@ -103,7 +103,7 @@ func (c SemanticVersion) Increment(in VersionType) SemanticVersion {
 func CastVersion(name, val string) (int, error) {
 	const failcode = -1
 
-	if name == "major" {
+	if name == "major" && len(val) > 0 {
 		if val[0] == 'v' {
 			val = val[1:]
 		}

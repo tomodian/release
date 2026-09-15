@@ -2,7 +2,7 @@ package files
 
 import (
 	"errors"
-	"io/ioutil"
+	"os"
 )
 
 // Read file content of given path.
@@ -11,7 +11,7 @@ func Read(path string) (string, error) {
 		return "", errors.New("given path is empty")
 	}
 
-	byt, err := ioutil.ReadFile(path)
+	byt, err := os.ReadFile(path)
 
 	if err != nil {
 		return "", err

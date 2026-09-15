@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sort"
+	"slices"
 	"strings"
 
 	"github.com/bmatcuk/doublestar"
@@ -56,10 +56,8 @@ func ignore(path string) bool {
 	for _, e := range excludes {
 		chunks := strings.Split(slash, "/")
 
-		for _, c := range chunks {
-			if c == e {
-				return true
-			}
+		if slices.Contains(chunks, e) {
+			return true
 		}
 	}
 
@@ -77,9 +75,7 @@ func Glob(d string) []string {
 		panic("malformed path pattern")
 	}
 
-	sort.Slice(paths, func(i, j int) bool {
-		return paths[i] < paths[j]
-	})
+	slices.Sort(paths)
 
 	outs := []string{}
 
